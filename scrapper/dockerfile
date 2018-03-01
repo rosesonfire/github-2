@@ -1,0 +1,4 @@
+FROM node
+COPY . /scrapper/
+ENV NODE_ENV=production
+ENTRYPOINT [ "/scrapper/bin/start.sh" ]
