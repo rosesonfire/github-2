@@ -45,7 +45,9 @@
     "url": "https://github.com/rosesonfire/github2/issues"
   },
   "homepage": "https://github.com/rosesonfire/github2#readme",
-  "dependencies": {},
+  "dependencies": {
+    "electrolyte": "^0.5.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.2",
