@@ -1,0 +1,26 @@
+version: '3'
+services:
+  scrapper:
+    build: "scrapper"
+  scrapper-db:
+    build: "data-db"
+    port:
+      - "8080:6379"
+  analyzer:
+    build: "analyzer"
+  analyzer-db:
+    build: "analyzer-db"
+    port:
+      - "8081:6379"
+  api:
+    build: "api"
+    port:
+      - "8082:80"
+  api-facade:
+    build: "api-facade"
+    port:
+      - "8083:80"
+  front-end:
+    build: "front-end"
+    port:
+      - "8084:80"
