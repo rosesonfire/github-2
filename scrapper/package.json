@@ -21,7 +21,7 @@
     "start-scrapper": "node $npm_package_config_main_dir",
     "start-scrapper-with-watcher": "nodemon --watch $npm_package_config_main_dir $npm_package_config_main_dir",
     "start-with-watchers": "npm run clean-build && npm run start-scrapper-with-watcher & npm run build-with-watcher",
-    "start": "npm test && npm run start-scrapper",
+    "start": "npm run start-scrapper",
     "eslint-test": "standard --parser babel-eslint \"$npm_package_config_src_js_files\"",
     "eslint-fix": "standard --parser babel-eslint --fix \"$npm_package_config_src_js_files\"",
     "test-scrapper": "nyc --reporter=html --report-dir=$npm_package_config_coverage_dir --all --include=$npm_package_config_prod_main_js_files mocha \"$npm_package_config_test_files\"",
