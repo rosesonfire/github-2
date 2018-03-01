@@ -1,5 +1,5 @@
 export default {
-  scrapper: {
+  scraper: {
     endpoint: 'https://github.com/timeline'
   },
   db: {

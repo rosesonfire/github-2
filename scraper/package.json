@@ -1,5 +1,5 @@
 {
-  "name": "scrapper",
+  "name": "scraper",
   "version": "0.0.1",
   "description": "Scrapes data from github endpoint, parses it to json, extracts relevant data, and persists it.",
   "main": "index.js",
@@ -18,15 +18,15 @@
     "build": "babel $npm_package_config_src_dir -d $npm_package_config_prod_dir --copy-files",
     "build-with-watcher": "babel $npm_package_config_src_dir --watch -d $npm_package_config_prod_dir --copy-files",
     "clean-build": "npm run clean && npm run build",
-    "start-scrapper": "node $npm_package_config_main_dir",
-    "start-scrapper-with-watcher": "nodemon --watch $npm_package_config_main_dir $npm_package_config_main_dir",
-    "start-with-watchers": "npm run clean-build && npm run start-scrapper-with-watcher & npm run build-with-watcher",
-    "start": "npm run start-scrapper",
+    "start-scraper": "node $npm_package_config_main_dir",
+    "start-scraper-with-watcher": "nodemon --watch $npm_package_config_main_dir $npm_package_config_main_dir",
+    "start-with-watchers": "npm run clean-build && npm run start-scraper-with-watcher & npm run build-with-watcher",
+    "start": "npm run start-scraper",
     "eslint-test": "standard --parser babel-eslint \"$npm_package_config_src_js_files\"",
     "eslint-fix": "standard --parser babel-eslint --fix \"$npm_package_config_src_js_files\"",
-    "test-scrapper": "nyc --reporter=html --report-dir=$npm_package_config_coverage_dir --all --include=$npm_package_config_prod_main_js_files mocha \"$npm_package_config_test_files\"",
+    "test-scraper": "nyc --reporter=html --report-dir=$npm_package_config_coverage_dir --all --include=$npm_package_config_prod_main_js_files mocha \"$npm_package_config_test_files\"",
     "show-coverage": "sensible-browser $npm_package_config_coverage",
-    "test": "npm run eslint-test && npm run clean-build && npm run test-scrapper",
+    "test": "npm run eslint-test && npm run clean-build && npm run test-scraper",
     "test-and-show-coverage": "npm test && npm run show-coverage"
   },
   "repository": {
@@ -34,7 +34,7 @@
     "url": "git+https://github.com/rosesonfire/github2.git"
   },
   "keywords": [
-    "scrapper",
+    "scraper",
     "github",
     "nodejs",
     "redis"

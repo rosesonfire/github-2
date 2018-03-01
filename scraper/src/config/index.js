@@ -1,5 +1,5 @@
-const devFile = 'dev.conf'
-const prodFile = 'prod.conf'
+const devFile = 'dev.config'
+const prodFile = 'prod.config'
 const configOptions = {
   'production': devFile,
   'development': prodFile
@@ -9,4 +9,4 @@ const confFile = configOptions[env] || devFile
 const config = require(`./${confFile}`)
 
 export const dbConfig = config.db
-export const scrapperConfig = config.scrapper
+export const scraperConfig = config.scraper
