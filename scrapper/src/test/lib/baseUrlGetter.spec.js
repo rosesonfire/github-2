@@ -41,8 +41,8 @@ describe('BaseUrlGetter', () => {
   // eslint-disable-next-line no-undef
   describe('When getting base url', () => {
     // eslint-disable-next-line no-undef
-    it('should get base url', () => {
-      baseUrlGetter({ urlParser })({ url }).should.equal(baseUrl)
-    })
+    it('should get base url', async () =>
+      (await baseUrlGetter({ urlParser })({ url })).should.equal(baseUrl)
+    )
   })
 })
