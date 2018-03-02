@@ -101,7 +101,7 @@ describe('XmlToJsonConverter', () => {
 
     // eslint-disable-next-line no-undef
     beforeEach(() => asyncConverter.once().withExactArgs(xml)
-      .returns(Promise.resolve(Promise.resolve(jsonData))))
+      .returns(Promise.resolve(jsonData)))
 
     // eslint-disable-next-line no-undef
     it('should get converted data', async () =>
