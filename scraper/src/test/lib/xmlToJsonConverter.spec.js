@@ -87,7 +87,7 @@ describe('XmlToJsonConverter', () => {
     beforeEach(() => converter.once().withExactArgs(xml).returns(jsonData))
 
     // eslint-disable-next-line no-undef
-    it('should return a promise', async () =>
+    it('should return a promise', () =>
       xmlToJsonConverter({ converter })({ xml }).should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
