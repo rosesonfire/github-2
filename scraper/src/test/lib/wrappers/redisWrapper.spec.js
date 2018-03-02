@@ -24,7 +24,7 @@ describe('RedisWrapper', () => {
     host = 'localhost'
     port = 1234
     expectedProperties = ['hmset']
-    hmsetArgs = ['id', 1, 'value', '1']
+    hmsetArgs = [1, 'id', 1, 'value', '1']
     positiveReply = 'OK'
   })
 
