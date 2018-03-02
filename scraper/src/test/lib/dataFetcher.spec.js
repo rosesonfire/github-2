@@ -37,6 +37,10 @@ describe('DataFetcher', () => {
     beforeEach(() => httpGetter.once().withExactArgs(url).returns(data))
 
     // eslint-disable-next-line no-undef
+    it('should return a promise', () => dataFetcher({ httpGetter })({ url })
+      .should.be.a('promise'))
+
+    // eslint-disable-next-line no-undef
     it('should get base url', async () =>
       (await dataFetcher({ httpGetter })({ url })).should.equal(data))
   })
