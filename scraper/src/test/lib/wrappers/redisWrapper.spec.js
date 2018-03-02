@@ -100,13 +100,34 @@ describe('RedisWrapper', () => {
     })
 
     // eslint-disable-next-line no-undef
-    it('should fail when core redis client fails', () =>
+    it('should fail when core redis client returns error', () =>
       redisWrapper({ redis })({ host, port }).hmset(...hmsetArgs).should
         .eventually.be.rejected)
   })
 
   // eslint-disable-next-line no-undef
   describe('When calling hmset in redisWrapper (3)', () => {
+    // eslint-disable-next-line no-undef
+    before(() => {
+      mocks = [ redis ]
+      stubs = [ redisClientStub.hmset ]
+    })
+
+    // eslint-disable-next-line no-undef
+    beforeEach(() => {
+      redis.once().withExactArgs({ host, port }).returns(redisClientStub)
+      redisClientStub.hmset.onFirstCall()
+        .callsFake((...args) => { throw new Error('error') })
+    })
+
+    // eslint-disable-next-line no-undef
+    it('should fail when core redis client fails', () =>
+      redisWrapper({ redis })({ host, port }).hmset(...hmsetArgs).should
+        .eventually.be.rejected)
+  })
+
+  // eslint-disable-next-line no-undef
+  describe('When calling hmset in redisWrapper (4)', () => {
     // eslint-disable-next-line no-undef
     before(() => {
       mocks = [ redis, redisClientMock.hmset ]
