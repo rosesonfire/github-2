@@ -47,7 +47,8 @@
   "homepage": "https://github.com/rosesonfire/github2#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "electrolyte": "^0.5.0"
+    "electrolyte": "^0.5.0",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
