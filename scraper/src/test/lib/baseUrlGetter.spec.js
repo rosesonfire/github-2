@@ -45,6 +45,10 @@ describe('BaseUrlGetter', () => {
       urlParser.once().withExactArgs(url).returns(parsedUrl))
 
     // eslint-disable-next-line no-undef
+    it('should return a promise', () => baseUrlGetter({ urlParser })({ url })
+      .should.be.a('promise'))
+
+    // eslint-disable-next-line no-undef
     it('should get base url', async () =>
       (await baseUrlGetter({ urlParser })({ url })).should.equal(baseUrl))
   })
