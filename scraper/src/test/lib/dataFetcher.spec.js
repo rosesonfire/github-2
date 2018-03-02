@@ -50,7 +50,7 @@ describe('DataFetcher', () => {
 
     // eslint-disable-next-line no-undef
     beforeEach(() => asyncHttpGetter.once().withExactArgs(url)
-      .returns(Promise.resolve(Promise.resolve(data))))
+      .returns(Promise.resolve(data)))
 
     // eslint-disable-next-line no-undef
     it('should get base url', async () =>
