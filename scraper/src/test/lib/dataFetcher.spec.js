@@ -41,8 +41,8 @@ describe('DataFetcher', () => {
       .should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
-    it('should get base url', async () =>
-      (await dataFetcher({ httpGetter })({ url })).should.equal(data))
+    it('should get base url', () => dataFetcher({ httpGetter })({ url }).should
+      .eventually.equal(data))
   })
 
   // eslint-disable-next-line no-undef
@@ -57,8 +57,8 @@ describe('DataFetcher', () => {
       .returns(Promise.resolve(data)))
 
     // eslint-disable-next-line no-undef
-    it('should get base url', async () =>
-      (await dataFetcher({ httpGetter: asyncHttpGetter })({ url })).should
+    it('should get base url', () =>
+      dataFetcher({ httpGetter: asyncHttpGetter })({ url }).should.eventually
         .equal(data))
   })
 })

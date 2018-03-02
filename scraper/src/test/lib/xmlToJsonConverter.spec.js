@@ -91,8 +91,8 @@ describe('XmlToJsonConverter', () => {
       xmlToJsonConverter({ converter })({ xml }).should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
-    it('should get converted data', async () =>
-      (await xmlToJsonConverter({ converter })({ xml })).should
+    it('should get converted data', () =>
+      xmlToJsonConverter({ converter })({ xml }).should.eventually
         .equal(jsonData))
   })
 
@@ -108,8 +108,8 @@ describe('XmlToJsonConverter', () => {
       .returns(Promise.resolve(jsonData)))
 
     // eslint-disable-next-line no-undef
-    it('should get converted data', async () =>
-      (await xmlToJsonConverter({ converter: asyncConverter })({ xml }))
-        .should.equal(jsonData))
+    it('should get converted data', () =>
+      xmlToJsonConverter({ converter: asyncConverter })({ xml }).should
+        .eventually.equal(jsonData))
   })
 })

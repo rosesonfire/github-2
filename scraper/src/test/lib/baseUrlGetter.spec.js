@@ -49,8 +49,8 @@ describe('BaseUrlGetter', () => {
       .should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
-    it('should get base url', async () =>
-      (await baseUrlGetter({ urlParser })({ url })).should.equal(baseUrl))
+    it('should get base url', () =>
+      baseUrlGetter({ urlParser })({ url }).should.eventually.equal(baseUrl))
   })
 
   // eslint-disable-next-line no-undef
@@ -65,8 +65,8 @@ describe('BaseUrlGetter', () => {
       .returns(Promise.resolve(parsedUrl)))
 
     // eslint-disable-next-line no-undef
-    it('should get base url', async () =>
-      (await baseUrlGetter({ urlParser: asyncUrlParser })({ url })).should
+    it('should get base url', () =>
+      baseUrlGetter({ urlParser: asyncUrlParser })({ url }).should.eventually
         .equal(baseUrl))
   })
 })

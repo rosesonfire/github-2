@@ -79,9 +79,9 @@ describe('RedisWrapper', () => {
       .hmset(...hmsetArgs).should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
-    it('should return positive response when successful', async () =>
-      (await redisWrapper({ redis })({ host, port }).hmset(...hmsetArgs)).should
-        .equal(positiveReply))
+    it('should return positive response when successful', () =>
+      redisWrapper({ redis })({ host, port }).hmset(...hmsetArgs).should
+        .eventually.equal(positiveReply))
   })
 
   // eslint-disable-next-line no-undef
@@ -100,8 +100,9 @@ describe('RedisWrapper', () => {
     })
 
     // eslint-disable-next-line no-undef
-    it('should fail when core redis client fails', async () =>
-      redisWrapper({ redis })({ host, port }).hmset(...hmsetArgs).should.fail())
+    it('should fail when core redis client fails', () =>
+      redisWrapper({ redis })({ host, port }).hmset(...hmsetArgs).should
+        .eventually.be.rejected)
   })
 
   // eslint-disable-next-line no-undef
