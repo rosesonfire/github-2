@@ -11,6 +11,7 @@
     "coverage": "coverage/index.html",
     "src_js_files": "src/**/*.js",
     "prod_main_js_files": "dist/main/**/*.js",
+    "prod_main_index_file": "dist/main/index.js",
     "test_files": "dist/test/**/*.spec.js"
   },
   "scripts": {
@@ -24,7 +25,7 @@
     "start": "npm run start-scraper",
     "eslint-test": "eslint --parser babel-eslint \"$npm_package_config_src_js_files\"",
     "eslint-fix": "eslint --parser babel-eslint --fix \"$npm_package_config_src_js_files\"",
-    "test-scraper": "npm run clean-build && nyc --reporter=html --report-dir=$npm_package_config_coverage_dir --all --include=$npm_package_config_prod_main_js_files mocha \"$npm_package_config_test_files\"",
+    "test-scraper": "npm run clean-build && nyc --reporter=html --report-dir=$npm_package_config_coverage_dir --all --include=$npm_package_config_prod_main_js_files --exclude=$npm_package_config_prod_main_index_file mocha \"$npm_package_config_test_files\"",
     "show-coverage": "sensible-browser $npm_package_config_coverage",
     "test": "npm run eslint-test && npm run test-scraper",
     "test-and-show-coverage": "npm test && npm run show-coverage"
