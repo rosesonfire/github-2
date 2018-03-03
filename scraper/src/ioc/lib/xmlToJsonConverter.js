@@ -5,7 +5,19 @@ exports = module.exports = () => {
   let xmlToJsonConverterInstance = null
 
   try {
-    const converter = parseString
+    const converter = ({ xml }) => new Promise((resolve, reject) => {
+      try {
+        parseString(xml, (err, result) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(result)
+          }
+        })
+      } catch (e) {
+        reject(e)
+      }
+    })
     xmlToJsonConverterInstance = xmlToJsonConverter({ converter })
   } catch (e) {
     // eslint-disable-next-line no-console
