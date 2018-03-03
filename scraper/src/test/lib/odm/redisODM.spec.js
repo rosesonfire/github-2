@@ -26,9 +26,9 @@ describe('RedisODM', () => {
     host = 'localhost'
     port = '1234'
     expectedODMProperties = ['create']
-    expectedModelObjProperties = ['save']
+    expectedModelObjProperties = ['data', 'save']
     passedData = [1, 'id', 1, 'value', '1']
-    data = {'id': 1, 'value': '1'}
+    data = { 'id': 1, 'value': '1' }
     idKey = 'id'
     positiveReply = 'OK'
   })
@@ -68,6 +68,19 @@ describe('RedisODM', () => {
         redisODM({ redis: redisWrapper })({ host, port })
           .create({ data: data, idKey }).should.eventually.include
           .keys(expectedModelObjProperties))
+
+      // eslint-disable-next-line no-undef
+      it('should map the data properly', async () => {
+        const modelObj = await redisODM({ redis: redisWrapper })({ host, port })
+          .create({ data: data, idKey })
+        const modelObjData = modelObj.data
+
+        Object.entries(data)
+          .forEach(entry => modelObjData.should.have.own.property(...entry))
+
+        Object.entries(modelObjData)
+          .forEach(entry => data.should.have.own.property(...entry))
+      })
     })
   })
 

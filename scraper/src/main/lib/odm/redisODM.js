@@ -34,6 +34,7 @@ export default ({ redis }) => ({ host, port }) => {
       const id = data[idKey]
       const flattenedData = [id, ...flattenData(data)]
       return {
+        data,
         save: async () => client.hmset(...flattenedData)
       }
     }
