@@ -14,9 +14,10 @@ describe('RedisODM', () => {
     redisWrapperClient,
     host,
     port,
-    flatSingleData,
-    singleData,
-    multiData,
+    expectedODMProperties,
+    expectedModelObjProperties,
+    passedData,
+    data,
     idKey,
     positiveReply
 
@@ -24,51 +25,70 @@ describe('RedisODM', () => {
   before(() => {
     host = 'localhost'
     port = '1234'
-    flatSingleData = [1, 'id', 1, 'value', '1']
-    singleData = [{'id': 1, 'value': '1'}]
-    multiData = [{'id': 1, 'value': '1'}, {'id': 2, 'value': '2'}]
+    expectedODMProperties = ['create']
+    expectedModelObjProperties = ['save']
+    passedData = [1, 'id', 1, 'value', '1']
+    data = {'id': 1, 'value': '1'}
     idKey = 'id'
     positiveReply = 'OK'
+  })
+
+  // eslint-disable-next-line no-undef
+  beforeEach(() => {
+    redisWrapper = redisWrapperMock()
+    redisWrapperClient = redisWrapperClientMock()
+    redisWrapper.once().withExactArgs({ host, port })
+      .returns(redisWrapperClient)
   })
 
   // eslint-disable-next-line no-undef
   afterEach(() => mocks.forEach(mock => mock.verify()))
 
   // eslint-disable-next-line no-undef
-  describe('When persisting data', () => {
+  describe('When creating redisODM', () => {
     // eslint-disable-next-line no-undef
     beforeEach(() => {
-      redisWrapper = redisWrapperMock()
-      redisWrapperClient = redisWrapperClientMock()
+      mocks = [ redisWrapper ]
+    })
+
+    // eslint-disable-next-line no-undef
+    it('should have expected properties', () =>
+      redisODM({ redis: redisWrapper })({ host, port }).should.include
+        .keys(expectedODMProperties))
+
+    // eslint-disable-next-line no-undef
+    describe('When creating a model object', () => {
+      // eslint-disable-next-line no-undef
+      it('should return a promise', () =>
+        redisODM({ redis: redisWrapper })({ host, port })
+          .create({ data: data, idKey }).should.be.a('promise'))
+
+      // eslint-disable-next-line no-undef
+      it('should have expected properties', () =>
+        redisODM({ redis: redisWrapper })({ host, port })
+          .create({ data: data, idKey }).should.eventually.include
+          .keys(expectedModelObjProperties))
+    })
+  })
+
+  // eslint-disable-next-line no-undef
+  describe('When saving a model object', () => {
+    // eslint-disable-next-line no-undef
+    beforeEach(() => {
+      redisWrapperClient.hmset.once().withExactArgs(...passedData)
+        .resolves(positiveReply)
       mocks = [ redisWrapper, redisWrapperClient.hmset ]
-      redisWrapper.once().withExactArgs({ host, port })
-        .returns(redisWrapperClient)
     })
 
     // eslint-disable-next-line no-undef
-    describe('When persisting single data', () => {
-      // eslint-disable-next-line no-undef
-      beforeEach(() => redisWrapperClient.hmset.once()
-        .withExactArgs(...flatSingleData).resolves(positiveReply))
-
-      // eslint-disable-next-line no-undef
-      it('should persist single data', () =>
-        redisODM({ redis: redisWrapper })({ host, port })(
-          { data: singleData, idKey }).should.eventually
-          .equalTo([positiveReply]))
-    })
+    it('should return a promise', async () =>
+      (await redisODM({ redis: redisWrapper })({ host, port })
+        .create({ data: data, idKey })).save().should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
-    describe('When persisting multiple data', () => {
-      // eslint-disable-next-line no-undef
-      beforeEach(() => redisWrapperClient.hmset.exactly(multiData.length)
-        .resolves(positiveReply))
-
-      // eslint-disable-next-line no-undef
-      it('should persist multiple data', () =>
-        redisODM({ redis: redisWrapper })({ host, port })(
-          { data: multiData, idKey }).should.eventually
-          .equalTo(multiData.map(d => positiveReply)))
-    })
+    it('should be successful', async () =>
+      (await redisODM({ redis: redisWrapper })({ host, port })
+        .create({ data: data, idKey })).save().should.eventually
+        .equal(positiveReply))
   })
 })

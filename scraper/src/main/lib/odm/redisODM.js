@@ -5,8 +5,8 @@ import 'babel-polyfill'
 //   { 'name': 'abc', 'code': 56 }
 //   is generated as
 //   [ 'name', 'abc', 'code', 56 ]
-function * flattenObject (d) {
-  const entries = Object.entries(d)
+function * flattenData (data) {
+  const entries = Object.entries(data)
   for (let i = 0, len = entries.length; i < len; i++) {
     const entry = entries[i]
 
@@ -25,9 +25,17 @@ function * flattenObject (d) {
 export default ({ redis }) => ({ host, port }) => {
   const client = redis({ host, port })
 
-  // data is the data
-  // idKey is the key in the data which will be used as the id in the redis hash
-  //   object
-  return ({ data, idKey }) => Promise.all(data.map(d => client
-    .hmset(d[idKey], ...flattenObject(d))))
+  // Returns an ODM
+  return {
+    // data is the data
+    // idKey is the key in the data which will be used as the id in the redis
+    //   hash object
+    create: async ({ data, idKey }) => {
+      const id = data[idKey]
+      const flattenedData = [id, ...flattenData(data)]
+      return {
+        save: async () => client.hmset(...flattenedData)
+      }
+    }
+  }
 }
