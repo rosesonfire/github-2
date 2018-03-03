@@ -8,15 +8,10 @@
       "request": "launch",
       "name": "Start app",
       "cwd": "${workspaceFolder}/scraper",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run-script",
-        "start"
-      ],
-      "port": 9229,
+      "program": "${workspaceFolder}/scraper/dist/main/index.js",
       "preLaunchTask": "build",
       "sourceMaps": true,
-      "outputCapture": "std"
+      "protocol": "inspector"
     },
 		{
       "type": "node",
