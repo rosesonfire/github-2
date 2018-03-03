@@ -3,13 +3,15 @@ import expect from './../../setup'
 // unit
 import redisODM from './../../../main/lib/odm/redisODM'
 // mocks
-import redisWrapper, { redisWrapperClient }
+import redisWrapperMock, { redisWrapperClientMock }
   from './../../mocks/wrappers/redisWrapper'
 
 // eslint-disable-next-line no-undef
 describe('RedisODM', () => {
   let
     mocks,
+    redisWrapper,
+    redisWrapperClient,
     host,
     port,
     flatSingleData,
@@ -30,50 +32,43 @@ describe('RedisODM', () => {
   })
 
   // eslint-disable-next-line no-undef
-  afterEach(() => mocks.forEach(mock => {
-    mock.verify()
-    mock.reset()
-  }))
+  afterEach(() => mocks.forEach(mock => mock.verify()))
 
   // eslint-disable-next-line no-undef
-  describe('When persisting single data', () => {
-    // eslint-disable-next-line no-undef
-    before(() => {
-      mocks = [ redisWrapper, redisWrapperClient.hmset ]
-    })
-
+  describe('When persisting data', () => {
     // eslint-disable-next-line no-undef
     beforeEach(() => {
-      redisWrapper.once().withExactArgs({ host, port })
-        .returns(redisWrapperClient)
-      redisWrapperClient.hmset.once().withExactArgs(...flatSingleData)
-        .resolves(positiveReply)
-    })
-
-    // eslint-disable-next-line no-undef
-    it('should persist single data', () =>
-      redisODM({ redis: redisWrapper })({ host, port })(
-        { data: singleData, idKey }).should.eventually.equalTo([positiveReply]))
-  })
-
-  // eslint-disable-next-line no-undef
-  describe('When persisting multiple data', () => {
-    // eslint-disable-next-line no-undef
-    before(() => {
+      redisWrapper = redisWrapperMock()
+      redisWrapperClient = redisWrapperClientMock()
       mocks = [ redisWrapper, redisWrapperClient.hmset ]
-    })
-
-    // eslint-disable-next-line no-undef
-    beforeEach(() => {
       redisWrapper.once().withExactArgs({ host, port })
         .returns(redisWrapperClient)
-      redisWrapperClient.hmset.exactly(multiData.length).resolves(positiveReply)
     })
 
     // eslint-disable-next-line no-undef
-    it('should persist multiple data', () =>
-      redisODM({ redis: redisWrapper })({ host, port })(
-        { data: multiData, idKey }).should.eventually
-        .equalTo(multiData.map(d => positiveReply)))
+    describe('When persisting single data', () => {
+      // eslint-disable-next-line no-undef
+      beforeEach(() => redisWrapperClient.hmset.once()
+        .withExactArgs(...flatSingleData).resolves(positiveReply))
+
+      // eslint-disable-next-line no-undef
+      it('should persist single data', () =>
+        redisODM({ redis: redisWrapper })({ host, port })(
+          { data: singleData, idKey }).should.eventually
+          .equalTo([positiveReply]))
+    })
+
+    // eslint-disable-next-line no-undef
+    describe('When persisting multiple data', () => {
+      // eslint-disable-next-line no-undef
+      beforeEach(() => redisWrapperClient.hmset.exactly(multiData.length)
+        .resolves(positiveReply))
+
+      // eslint-disable-next-line no-undef
+      it('should persist multiple data', () =>
+        redisODM({ redis: redisWrapper })({ host, port })(
+          { data: multiData, idKey }).should.eventually
+          .equalTo(multiData.map(d => positiveReply)))
+    })
   })
 })

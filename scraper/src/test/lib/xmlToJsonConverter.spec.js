@@ -4,13 +4,13 @@ import expect from './../setup'
 import xmlToJsonConverter from './../../main/lib/xmlToJsonConverter'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
-const converter = plainOldMockObject()
-const asyncConverter = plainOldMockObject()
 
 // eslint-disable-next-line no-undef
 describe('XmlToJsonConverter', () => {
   let
     mocks,
+    converter,
+    asyncConverter,
     xml,
     jsonData
 
@@ -71,20 +71,16 @@ describe('XmlToJsonConverter', () => {
   })
 
   // eslint-disable-next-line no-undef
-  afterEach(() => mocks.forEach(mock => {
-    mock.verify()
-    mock.reset()
-  }))
+  afterEach(() => mocks.forEach(mock => mock.verify()))
 
   // eslint-disable-next-line no-undef
   describe('When converting data with sync converter', () => {
     // eslint-disable-next-line no-undef
-    before(() => {
+    beforeEach(() => {
+      converter = plainOldMockObject()
       mocks = [ converter ]
+      converter.once().withExactArgs(xml).returns(jsonData)
     })
-
-    // eslint-disable-next-line no-undef
-    beforeEach(() => converter.once().withExactArgs(xml).returns(jsonData))
 
     // eslint-disable-next-line no-undef
     it('should return a promise', () =>
@@ -99,13 +95,12 @@ describe('XmlToJsonConverter', () => {
   // eslint-disable-next-line no-undef
   describe('When converting data with async converter', () => {
     // eslint-disable-next-line no-undef
-    before(() => {
+    beforeEach(() => {
+      asyncConverter = plainOldMockObject()
       mocks = [ asyncConverter ]
+      asyncConverter.once().withExactArgs(xml)
+        .returns(Promise.resolve(jsonData))
     })
-
-    // eslint-disable-next-line no-undef
-    beforeEach(() => asyncConverter.once().withExactArgs(xml)
-      .returns(Promise.resolve(jsonData)))
 
     // eslint-disable-next-line no-undef
     it('should get converted data', () =>

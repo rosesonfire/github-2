@@ -4,13 +4,13 @@ import expect from './../setup'
 import baseUrlGetter from './../../main/lib/baseUrlGetter'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
-const urlParser = plainOldMockObject()
-const asyncUrlParser = plainOldMockObject()
 
 // eslint-disable-next-line no-undef
 describe('BaseUrlGetter', () => {
   let
     mocks,
+    urlParser,
+    asyncUrlParser,
     url,
     hostname,
     baseUrl,
@@ -27,22 +27,16 @@ describe('BaseUrlGetter', () => {
   })
 
   // eslint-disable-next-line no-undef
-  afterEach(() =>
-    mocks.forEach(mock => {
-      mock.verify()
-      mock.reset()
-    }))
+  afterEach(() => mocks.forEach(mock => mock.verify()))
 
   // eslint-disable-next-line no-undef
   describe('When getting base url with sync urlParser', () => {
     // eslint-disable-next-line no-undef
-    before(() => {
+    beforeEach(() => {
+      urlParser = plainOldMockObject()
       mocks = [ urlParser ]
+      urlParser.once().withExactArgs(url).returns(parsedUrl)
     })
-
-    // eslint-disable-next-line no-undef
-    beforeEach(() =>
-      urlParser.once().withExactArgs(url).returns(parsedUrl))
 
     // eslint-disable-next-line no-undef
     it('should return a promise', () => baseUrlGetter({ urlParser })({ url })
@@ -56,13 +50,12 @@ describe('BaseUrlGetter', () => {
   // eslint-disable-next-line no-undef
   describe('When getting base url with async urlParser', () => {
     // eslint-disable-next-line no-undef
-    before(() => {
+    beforeEach(() => {
+      asyncUrlParser = plainOldMockObject()
       mocks = [ asyncUrlParser ]
+      asyncUrlParser.once().withExactArgs(url)
+        .returns(Promise.resolve(parsedUrl))
     })
-
-    // eslint-disable-next-line no-undef
-    beforeEach(() => asyncUrlParser.once().withExactArgs(url)
-      .returns(Promise.resolve(parsedUrl)))
 
     // eslint-disable-next-line no-undef
     it('should get base url', () =>

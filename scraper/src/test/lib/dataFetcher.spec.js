@@ -4,13 +4,13 @@ import expect from './../setup'
 import dataFetcher from './../../main/lib/dataFetcher'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
-const httpGetter = plainOldMockObject()
-const asyncHttpGetter = plainOldMockObject()
 
 // eslint-disable-next-line no-undef
 describe('DataFetcher', () => {
   let
     mocks,
+    httpGetter,
+    asyncHttpGetter,
     url,
     data
 
@@ -21,20 +21,16 @@ describe('DataFetcher', () => {
   })
 
   // eslint-disable-next-line no-undef
-  afterEach(() => mocks.forEach(mock => {
-    mock.verify()
-    mock.reset()
-  }))
+  afterEach(() => mocks.forEach(mock => mock.verify()))
 
   // eslint-disable-next-line no-undef
   describe('When fetching data with sync httpGetter', () => {
     // eslint-disable-next-line no-undef
-    before(() => {
+    beforeEach(() => {
+      httpGetter = plainOldMockObject()
       mocks = [ httpGetter ]
+      httpGetter.once().withExactArgs(url).returns(data)
     })
-
-    // eslint-disable-next-line no-undef
-    beforeEach(() => httpGetter.once().withExactArgs(url).returns(data))
 
     // eslint-disable-next-line no-undef
     it('should return a promise', () => dataFetcher({ httpGetter })({ url })
@@ -48,13 +44,11 @@ describe('DataFetcher', () => {
   // eslint-disable-next-line no-undef
   describe('When fetching data with async httpGetter', () => {
     // eslint-disable-next-line no-undef
-    before(() => {
+    beforeEach(() => {
+      asyncHttpGetter = plainOldMockObject()
       mocks = [ asyncHttpGetter ]
+      asyncHttpGetter.once().withExactArgs(url).returns(Promise.resolve(data))
     })
-
-    // eslint-disable-next-line no-undef
-    beforeEach(() => asyncHttpGetter.once().withExactArgs(url)
-      .returns(Promise.resolve(data)))
 
     // eslint-disable-next-line no-undef
     it('should get base url', () =>

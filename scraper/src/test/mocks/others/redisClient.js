@@ -1,9 +1,9 @@
 import sinon from 'sinon'
 
-export const redisClientMock = {
+export const redisClientMock = () => ({
   hmset: sinon.mock()
-}
+})
 
-export const redisClientStub = {
+export const redisClientStub = () => ({
   hmset: sinon.stub()
-}
+})
