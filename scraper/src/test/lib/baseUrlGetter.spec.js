@@ -12,6 +12,7 @@ describe('BaseUrlGetter', () => {
     urlParser,
     asyncUrlParser,
     url,
+    protocol,
     hostname,
     baseUrl,
     parsedUrl
@@ -19,9 +20,11 @@ describe('BaseUrlGetter', () => {
   // eslint-disable-next-line no-undef
   before(() => {
     url = 'https://github.com/timeline'
-    hostname = 'https://github.com'
-    baseUrl = hostname + '/'
+    protocol = 'https:'
+    hostname = 'github.com'
+    baseUrl = `${protocol}//${hostname}/`
     parsedUrl = {
+      protocol,
       hostname
     }
   })
