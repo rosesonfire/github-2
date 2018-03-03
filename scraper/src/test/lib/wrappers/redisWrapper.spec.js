@@ -46,11 +46,9 @@ describe('RedisWrapper', () => {
     })
 
     // eslint-disable-next-line no-undef
-    it('should have expected properties', () => {
-      const rw = redisWrapper({ redis })({ host, port })
-
-      expectedProperties.forEach(ep => rw.should.have.property(ep))
-    })
+    it('should have expected properties', () =>
+      redisWrapper({ redis })({ host, port }).should.have.all
+        .keys(...expectedProperties))
 
     // eslint-disable-next-line no-undef
     describe('When calling hmset in redisWrapper', () => {
