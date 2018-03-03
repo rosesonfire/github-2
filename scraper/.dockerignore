@@ -1,7 +1,1 @@
-dockerfile
-node_modules
-src
-coverage
-.nyc_output
-.babelrc
-.eslintrc.json
+dist/test

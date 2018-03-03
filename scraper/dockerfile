@@ -1,4 +1,7 @@
 FROM node
-COPY . /scraper/
+COPY package.json /scraper/
+COPY package-lock.json /scraper/
+COPY dist /scraper/dist
+COPY bin /scraper/bin
 ENV NODE_ENV=production
-ENTRYPOINT [ "/scrapper/bin/start.sh" ]
+ENTRYPOINT [ "/scraper/bin/start.sh" ]
