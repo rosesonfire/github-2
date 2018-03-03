@@ -1,0 +1,37 @@
+{
+	"version": "0.2.0",
+	// List of configurations. Add new configurations or edit existing ones.  
+	// ONLY "node" and "mono" are supported, change "type" to switch.
+	"configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch via NPM",
+      "cwd": "${workspaceFolder}/scraper",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "start"
+      ],
+      "port": 9229,
+      "preLaunchTask": "build"
+    },
+		{
+      "type": "node",
+      "request": "launch",
+      "name": "Mocha Tests",
+      "program": "${workspaceFolder}/scraper/node_modules/mocha/bin/_mocha",
+      "protocol": "inspector",
+      "args": [
+        "-u",
+        "tdd",
+        "--timeout",
+        "999999",
+        "--colors",
+        "${workspaceFolder}/scraper/dist/test/**/*.spec.js"
+      ],
+      "internalConsoleOptions": "openOnSessionStart",
+      "preLaunchTask": "build"
+    }
+	]
+}
