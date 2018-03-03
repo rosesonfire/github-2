@@ -5,7 +5,7 @@ exports = module.exports = () => {
   let baseUrlGetterInstance = null
 
   try {
-    const urlParser = url
+    const urlParser = url.parse.bind(url)
     baseUrlGetterInstance = baseUrlGetter({ urlParser })
   } catch (e) {
     // eslint-disable-next-line no-console
