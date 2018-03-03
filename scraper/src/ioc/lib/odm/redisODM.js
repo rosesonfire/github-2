@@ -13,5 +13,5 @@ exports = module.exports = (redisWrapper) => {
   return redisODMInstance
 }
 
-exports['@require'] = ['ilb/wrappers/redisWrapper']
+exports['@require'] = ['lib/wrappers/redisWrapper']
 exports['@singleton'] = true
