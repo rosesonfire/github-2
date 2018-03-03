@@ -6,7 +6,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch via NPM",
+      "name": "Start app",
       "cwd": "${workspaceFolder}/scraper",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
@@ -14,7 +14,9 @@
         "start"
       ],
       "port": 9229,
-      "preLaunchTask": "build"
+      "preLaunchTask": "build",
+      "sourceMaps": true,
+      "outputCapture": "std"
     },
 		{
       "type": "node",
@@ -31,7 +33,8 @@
         "${workspaceFolder}/scraper/dist/test/**/*.spec.js"
       ],
       "internalConsoleOptions": "openOnSessionStart",
-      "preLaunchTask": "build"
+      "preLaunchTask": "build",
+      "sourceMaps": true
     }
 	]
 }
