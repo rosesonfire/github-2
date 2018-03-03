@@ -20,7 +20,7 @@ describe('Scrapper', () => {
     fetchedData,
     singleJsonData,
     multipleJsonData,
-    singleRequiredData,
+    singlePassedData,
     positiveReply
 
   // eslint-disable-next-line no-undef
@@ -76,13 +76,16 @@ describe('Scrapper', () => {
         ]
       }
     }
-    singleRequiredData = {
-      event: 'IssueCommentEvent',
-      author: {
-        name: 'ansibot',
-        uri: 'ansibot'
-      },
-      updateTime: new Date(Date.parse('2018-03-01T23:58:35Z'))
+    singlePassedData = {
+      key: 'ansibot',
+      data: {
+        event: 'IssueCommentEvent',
+        author: {
+          name: 'ansibot',
+          uri: 'ansibot'
+        },
+        updateTime: new Date(Date.parse('2018-03-01T23:58:35Z'))
+      }
     }
     positiveReply = 'OK'
   })
@@ -96,9 +99,9 @@ describe('Scrapper', () => {
     redisModelObject = redisModelObjectMock()
     mocks = [ baseUrlGetter, dataFetcher, xmlToJsonConverter, redisODM.create,
       redisModelObject.save ]
-    baseUrlGetter.once().withExactArgs(url).resolves(baseUrl)
-    dataFetcher.once().withExactArgs(url).resolves(fetchedData)
-    xmlToJsonConverter.once().withExactArgs(fetchedData.data)
+    baseUrlGetter.once().withExactArgs({ url }).resolves(baseUrl)
+    dataFetcher.once().withExactArgs({ url }).resolves(fetchedData)
+    xmlToJsonConverter.once().withExactArgs({ xml: fetchedData.data })
   })
 
   // eslint-disable-next-line no-undef
@@ -111,7 +114,7 @@ describe('Scrapper', () => {
       // eslint-disable-next-line no-undef
       beforeEach(() => {
         xmlToJsonConverter.resolves(singleJsonData)
-        redisODM.create.once().withExactArgs(singleRequiredData)
+        redisODM.create.once().withExactArgs(singlePassedData)
           .returns(redisModelObject)
         redisModelObject.save.once().withExactArgs().resolves(positiveReply)
       })
