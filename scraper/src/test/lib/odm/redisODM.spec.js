@@ -18,7 +18,6 @@ describe('RedisODM', () => {
     expectedModelObjProperties,
     passedData,
     data,
-    idKey,
     positiveReply
 
   // eslint-disable-next-line no-undef
@@ -26,10 +25,9 @@ describe('RedisODM', () => {
     host = 'localhost'
     port = '1234'
     expectedODMProperties = ['create']
-    expectedModelObjProperties = ['data', 'save']
+    expectedModelObjProperties = ['key', 'data', 'save']
     passedData = [1, 'id', 1, 'value', '1']
     data = { 'id': 1, 'value': '1' }
-    idKey = 'id'
     positiveReply = 'OK'
   })
 
@@ -61,14 +59,16 @@ describe('RedisODM', () => {
       // eslint-disable-next-line no-undef
       it('should have expected properties', () =>
         redisODM({ redis: redisWrapper })({ host, port })
-          .create({ data: data, idKey }).should.include
+          .create({ key: data.id, data: data }).should.include
           .keys(expectedModelObjProperties))
 
       // eslint-disable-next-line no-undef
       it('should map the data properly', () => {
         const modelObj = redisODM({ redis: redisWrapper })({ host, port })
-          .create({ data: data, idKey })
+          .create({ key: data.id, data: data })
         const modelObjData = modelObj.data
+
+        modelObj.key.should.equal(data.id)
 
         Object.entries(data)
           .forEach(entry => modelObjData.should.have.own.property(...entry))
@@ -91,12 +91,12 @@ describe('RedisODM', () => {
     // eslint-disable-next-line no-undef
     it('should return a promise', () =>
       redisODM({ redis: redisWrapper })({ host, port })
-        .create({ data: data, idKey }).save().should.be.a('promise'))
+        .create({ key: data.id, data: data }).save().should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
     it('should be successful', async () =>
       redisODM({ redis: redisWrapper })({ host, port })
-        .create({ data: data, idKey }).save().should.eventually
+        .create({ key: data.id, data: data }).save().should.eventually
         .equal(positiveReply))
   })
 })

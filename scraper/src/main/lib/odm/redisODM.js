@@ -30,12 +30,12 @@ export default ({ redis }) => ({ host, port }) => {
     // data is the data
     // idKey is the key in the data which will be used as the id in the redis
     //   hash object
-    create: ({ data, idKey }) => {
-      const id = data[idKey]
-      const flattenedData = [id, ...flattenData(data)]
+    create: ({ key, data }) => {
+      const flattenedData = [...flattenData(data)]
       return {
+        key,
         data,
-        save: async () => client.hmset(...flattenedData)
+        save: async () => client.hmset(key, ...flattenedData)
       }
     }
   }
