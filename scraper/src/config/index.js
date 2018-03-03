@@ -6,7 +6,7 @@ const configOptions = {
 }
 const env = process.env.NODE_ENV
 const confFile = configOptions[env] || devFile
-const config = require(`./${confFile}`)
+const config = require(`./${confFile}`).default
 
 export const dbConfig = config.db
 export const scraperConfig = config.scraper
