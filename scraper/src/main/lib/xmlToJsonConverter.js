@@ -1,2 +1,2 @@
 // Converts xml string to json
-export default ({ converter }) => async ({ xml }) => converter(xml)
+export default ({ converter }) => async ({ xml }) => converter({ xml })

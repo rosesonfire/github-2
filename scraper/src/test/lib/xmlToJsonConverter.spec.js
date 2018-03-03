@@ -79,7 +79,7 @@ describe('XmlToJsonConverter', () => {
     beforeEach(() => {
       converter = plainOldMockObject()
       mocks = [ converter ]
-      converter.once().withExactArgs(xml).returns(jsonData)
+      converter.once().withExactArgs({ xml }).returns(jsonData)
     })
 
     // eslint-disable-next-line no-undef
@@ -98,7 +98,7 @@ describe('XmlToJsonConverter', () => {
     beforeEach(() => {
       asyncConverter = plainOldMockObject()
       mocks = [ asyncConverter ]
-      asyncConverter.once().withExactArgs(xml)
+      asyncConverter.once().withExactArgs({ xml })
         .returns(Promise.resolve(jsonData))
     })
 
