@@ -5,11 +5,13 @@ services:
     build: "scraper"
     environment:
      - NODE_ENV=production
-  # scraper-db:
-  #   container_name: "scraper-db"
-  #   build: "scraper-db"
-  #   port:
-  #     - "8080:6379"
+    depends_on:
+      - "scraper-db"
+  scraper-db:
+    container_name: "scraper-db"
+    build: "scraperDB"
+    ports:
+      - "8080:6379"
   # analyzer:
   #   container_name: "analyzer"
   #   build: "analyzer"
