@@ -7,7 +7,7 @@ exports = module.exports = (redisWrapper) => {
   try {
     const redis = redisWrapper
     const { host, port } = dbConfig
-    
+
     redisODMInstance = redisODM({ redis })({ host, port })
   } catch (e) {
     // eslint-disable-next-line no-console
