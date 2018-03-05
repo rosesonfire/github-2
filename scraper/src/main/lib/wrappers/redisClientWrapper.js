@@ -13,6 +13,7 @@ export default ({ redis, host, port }) => {
           resolve(replies)
         }
       })
-    })
+    }),
+    quit: async () => client.quit()
   }
 }
