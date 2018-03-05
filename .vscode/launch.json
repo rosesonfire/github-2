@@ -9,7 +9,7 @@
       "name": "Start app",
       "cwd": "${workspaceFolder}/scraper",
       "program": "${workspaceFolder}/scraper/dist/main/index.js",
-      "preLaunchTask": "build",
+      "preLaunchTask": "clean-build",
       "sourceMaps": true,
       "protocol": "inspector"
     },
@@ -28,7 +28,7 @@
         "${workspaceFolder}/scraper/dist/test/**/*.spec.js"
       ],
       "internalConsoleOptions": "openOnSessionStart",
-      "preLaunchTask": "build",
+      "preLaunchTask": "clean-build",
       "sourceMaps": true
     }
 	]
