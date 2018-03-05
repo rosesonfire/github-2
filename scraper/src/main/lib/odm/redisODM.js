@@ -15,28 +15,23 @@ function * flattenData (data) {
   }
 }
 
-// Persits data to a redis server
+// Maps data and persits it to a redis server
 // Data has to be a json array
 // Example:
 //   [
 //     { 'name': 'abc', 'code': 56 },
 //     { 'name': 'efg', 'code': 84 }
 //   ]
-export default ({ redis, host, port }) => {
-  const client = redis({ host, port })
-
-  // Returns an ODM
-  return {
-    // data is the data
-    // idKey is the key in the data which will be used as the id in the redis
-    //   hash object
-    create: ({ key, data }) => {
-      const flattenedData = [...flattenData(data)]
-      return {
-        key,
-        data,
-        save: async () => client.hmset(key, ...flattenedData)
-      }
+export default ({ redisClient }) => ({
+  // data is the data
+  // idKey is the key in the data which will be used as the id in the redis
+  //   hash object
+  create: ({ key, data }) => {
+    const flattenedData = [...flattenData(data)]
+    return {
+      key,
+      data,
+      save: async () => redisClient.hmset(key, ...flattenedData)
     }
   }
-}
+})

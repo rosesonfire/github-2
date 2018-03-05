@@ -7,7 +7,7 @@ import plainOldMockObject from './../mocks/others/plainOldMockObject'
 import redisODMMock, { redisModelObjectMock } from './../mocks/lib/odm/redisODM'
 
 // eslint-disable-next-line no-undef
-describe('Scrapper', () => {
+describe('Scraper', () => {
   let
     mocks,
     baseUrlGetter,
@@ -108,7 +108,7 @@ describe('Scrapper', () => {
   afterEach(() => mocks.forEach(mock => mock.verify()))
 
   // eslint-disable-next-line no-undef
-  describe('When calling scrapper', () => {
+  describe('When calling scraper', () => {
     // eslint-disable-next-line no-undef
     describe('When fetching single data', () => {
       // eslint-disable-next-line no-undef
