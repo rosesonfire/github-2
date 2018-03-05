@@ -123,13 +123,13 @@ describe('Scrapper', () => {
       it('should return a promise', () =>
         scraper(
           { url, baseUrlGetter, dataFetcher, xmlToJsonConverter, odm: redisODM }
-        ).should.be.a('promise'))
+        )().should.be.a('promise'))
 
       // eslint-disable-next-line no-undef
       it('should persist single data', () =>
         scraper(
           { url, baseUrlGetter, dataFetcher, xmlToJsonConverter, odm: redisODM }
-        ).should.eventually.equalTo([positiveReply]))
+        )().should.eventually.equalTo([positiveReply]))
     })
 
     // eslint-disable-next-line no-undef
@@ -147,7 +147,7 @@ describe('Scrapper', () => {
       it('should persist mutiple data', () =>
         scraper(
           { url, baseUrlGetter, dataFetcher, xmlToJsonConverter, odm: redisODM }
-        ).should.eventually
+        )().should.eventually
           .equalTo(multipleJsonData.feed.entry.map(en => positiveReply)))
     })
   })

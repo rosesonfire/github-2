@@ -15,13 +15,13 @@ const extract = ({ feed }, baseUrl) => {
 }
 
 // ETL's required data from endpoint to persistence
-export default async ({ url, baseUrlGetter, dataFetcher, xmlToJsonConverter, odm
-}) => {
-  const baseUrl = await baseUrlGetter({ url })
-  const { data } = await dataFetcher({ url })
-  const jsonData = await xmlToJsonConverter({ xml: data })
-  const requiredData = extract(jsonData, baseUrl)
+export default ({ url, baseUrlGetter, dataFetcher, xmlToJsonConverter, odm }) =>
+  async () => {
+    const baseUrl = await baseUrlGetter({ url })
+    const { data } = await dataFetcher({ url })
+    const jsonData = await xmlToJsonConverter({ xml: data })
+    const requiredData = extract(jsonData, baseUrl)
 
-  return Promise.all(requiredData.map(reqData =>
-    odm.create({ key: reqData.author.uri, data: reqData }).save()))
-}
+    return Promise.all(requiredData.map(reqData =>
+      odm.create({ key: reqData.author.uri, data: reqData }).save()))
+  }
