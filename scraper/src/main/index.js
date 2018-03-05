@@ -4,7 +4,7 @@ import { dependencies } from './../ioc'
 const scrape = async () => {
   const scraper = await dependencies.scraper
 
-  scraper()
+  await scraper()
 }
 
 scrape().catch(e => {
