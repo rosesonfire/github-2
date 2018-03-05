@@ -73,7 +73,7 @@ describe('RedisWrapper', () => {
       // eslint-disable-next-line no-undef
       describe('When core redis client returns error', () => {
         // eslint-disable-next-line no-undef
-        beforeEach(() => redisClient.hmset.onFirstCall()
+        beforeEach(() => redisClient.hmset
           .callsFake((...args) => args[args.length - 1](new Error('er'), null)))
 
         // eslint-disable-next-line no-undef
@@ -85,7 +85,7 @@ describe('RedisWrapper', () => {
       // eslint-disable-next-line no-undef
       describe('When core redis client fails', () => {
         // eslint-disable-next-line no-undef
-        beforeEach(() => redisClient.hmset.onFirstCall()
+        beforeEach(() => redisClient.hmset
           .callsFake((...args) => { throw new Error('er') }))
 
         // eslint-disable-next-line no-undef
