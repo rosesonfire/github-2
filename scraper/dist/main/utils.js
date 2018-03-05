@@ -1,0 +1,16 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// Creates a new promise object
+var createDefensivePromise = exports.createDefensivePromise = function createDefensivePromise(executorFunc) {
+  return new Promise(function (resolve, reject) {
+    try {
+      executorFunc(resolve, reject);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9tYWluL3V0aWxzLmpzIl0sIm5hbWVzIjpbImNyZWF0ZURlZmVuc2l2ZVByb21pc2UiLCJleGVjdXRvckZ1bmMiLCJQcm9taXNlIiwicmVzb2x2ZSIsInJlamVjdCIsImUiXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUE7QUFDTyxJQUFNQSwwREFBeUIsU0FBekJBLHNCQUF5QixDQUFDQyxZQUFEO0FBQUEsU0FDcEMsSUFBSUMsT0FBSixDQUFZLFVBQUNDLE9BQUQsRUFBVUMsTUFBVixFQUFxQjtBQUMvQixRQUFJO0FBQ0ZILG1CQUFhRSxPQUFiLEVBQXNCQyxNQUF0QjtBQUNELEtBRkQsQ0FFRSxPQUFPQyxDQUFQLEVBQVU7QUFDVkQsYUFBT0MsQ0FBUDtBQUNEO0FBQ0YsR0FORCxDQURvQztBQUFBLENBQS9CIiwiZmlsZSI6InV0aWxzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQ3JlYXRlcyBhIG5ldyBwcm9taXNlIG9iamVjdFxuZXhwb3J0IGNvbnN0IGNyZWF0ZURlZmVuc2l2ZVByb21pc2UgPSAoZXhlY3V0b3JGdW5jKSA9PlxuICBuZXcgUHJvbWlzZSgocmVzb2x2ZSwgcmVqZWN0KSA9PiB7XG4gICAgdHJ5IHtcbiAgICAgIGV4ZWN1dG9yRnVuYyhyZXNvbHZlLCByZWplY3QpXG4gICAgfSBjYXRjaCAoZSkge1xuICAgICAgcmVqZWN0KGUpXG4gICAgfVxuICB9KVxuIl19
