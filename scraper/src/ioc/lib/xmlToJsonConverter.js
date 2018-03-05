@@ -1,31 +1,22 @@
+import { createNewInstance } from './../iocHelper'
 import xmlToJsonConverter from './../../main/lib/xmlToJsonConverter'
 import { parseString } from 'xml2js'
 
-exports = module.exports = () => {
-  let xmlToJsonConverterInstance = null
-
+const converter = ({ xml }) => new Promise((resolve, reject) => {
   try {
-    const converter = ({ xml }) => new Promise((resolve, reject) => {
-      try {
-        parseString(xml, (err, result) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve(result)
-          }
-        })
-      } catch (e) {
-        reject(e)
+    parseString(xml, (err, result) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(result)
       }
     })
-    xmlToJsonConverterInstance = xmlToJsonConverter({ converter })
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e)
+    reject(e)
   }
+})
 
-  return xmlToJsonConverterInstance
-}
-
-exports['@require'] = []
-exports['@singleton'] = true
+exports = module.exports = createNewInstance({
+  instanceConstructor: xmlToJsonConverter,
+  dependencyInstances: { converter }
+})

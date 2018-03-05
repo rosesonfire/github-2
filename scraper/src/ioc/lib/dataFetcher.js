@@ -1,19 +1,10 @@
+import { createNewInstance } from './../iocHelper'
 import dataFetcher from './../../main/lib/dataFetcher'
 import axios from 'axios'
 
-exports = module.exports = () => {
-  let dataFetcherInstance = null
-
-  try {
-    const httpGetter = axios.get.bind(axios)
-    dataFetcherInstance = dataFetcher({ httpGetter })
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e)
+exports = module.exports = createNewInstance({
+  instanceConstructor: dataFetcher,
+  dependencyInstances: {
+    httpGetter: axios.get.bind(axios)
   }
-
-  return dataFetcherInstance
-}
-
-exports['@require'] = []
-exports['@singleton'] = true
+})
