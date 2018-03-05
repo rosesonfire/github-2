@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import expect from './../setup'
 // unit
-import scraper from './../../main/lib/scraper'
+import scraper from './../../main/services/scraper'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
 import redisODMMock, { redisModelObjectMock } from './../mocks/lib/odm/redisODM'

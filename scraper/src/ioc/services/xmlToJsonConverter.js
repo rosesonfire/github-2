@@ -1,6 +1,6 @@
 import { createNewInstance } from './../iocHelper'
 import { createDefensivePromise } from './../../main/utils'
-import xmlToJsonConverter from './../../main/lib/xmlToJsonConverter'
+import xmlToJsonConverter from './../../main/services/xmlToJsonConverter'
 import { parseString } from 'xml2js'
 
 const converter = ({ xml }) => createDefensivePromise((resolve, reject) => {

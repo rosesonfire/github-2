@@ -1,5 +1,5 @@
 import { createNewInstance } from './../iocHelper'
-import scraper from './../../main/lib/scraper'
+import scraper from './../../main/services/scraper'
 import { scraperConfig } from './../../config'
 
 exports = module.exports = createNewInstance({
@@ -8,9 +8,9 @@ exports = module.exports = createNewInstance({
     url: scraperConfig.endpoint
   },
   dependencyConfig: {
-    baseUrlGetter: 'lib/baseUrlGetter',
-    dataFetcher: 'lib/dataFetcher',
-    xmlToJsonConverter: 'lib/xmlToJsonConverter',
+    baseUrlGetter: 'services/baseUrlGetter',
+    dataFetcher: 'services/dataFetcher',
+    xmlToJsonConverter: 'services/xmlToJsonConverter',
     odm: 'lib/odm/redisODM'
   }
 })

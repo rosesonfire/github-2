@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import expect from './../setup'
 // unit
-import dataFetcher from './../../main/lib/dataFetcher'
+import dataFetcher from './../../main/services/dataFetcher'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
 

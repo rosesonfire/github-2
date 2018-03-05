@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import expect from './../setup'
 // unit
-import xmlToJsonConverter from './../../main/lib/xmlToJsonConverter'
+import xmlToJsonConverter from './../../main/services/xmlToJsonConverter'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
 

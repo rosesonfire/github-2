@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import expect from './../setup'
 // unit
-import baseUrlGetter from './../../main/lib/baseUrlGetter'
+import baseUrlGetter from './../../main/services/baseUrlGetter'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
 

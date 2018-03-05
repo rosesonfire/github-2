@@ -1,5 +1,5 @@
 import { createNewInstance } from './../iocHelper'
-import dataFetcher from './../../main/lib/dataFetcher'
+import dataFetcher from './../../main/services/dataFetcher'
 import axios from 'axios'
 
 exports = module.exports = createNewInstance({

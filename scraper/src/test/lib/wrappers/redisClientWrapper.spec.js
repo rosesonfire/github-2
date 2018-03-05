@@ -23,7 +23,7 @@ describe('RedisWrapper', () => {
   before(() => {
     host = 'localhost'
     port = 1234
-    expectedProperties = ['hmset']
+    expectedProperties = ['hmset', 'quit']
     hmsetArgs = [1, 'id', 1, 'value', '1']
     positiveReply = 'OK'
   })
