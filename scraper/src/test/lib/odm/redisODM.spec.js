@@ -51,20 +51,20 @@ describe('RedisODM', () => {
 
     // eslint-disable-next-line no-undef
     it('should have expected properties', () =>
-      redisODM({ redis: redisWrapper })({ host, port }).should.include
+      redisODM({ redis: redisWrapper, host, port }).should.include
         .keys(expectedODMProperties))
 
     // eslint-disable-next-line no-undef
     describe('When creating a model object', () => {
       // eslint-disable-next-line no-undef
       it('should have expected properties', () =>
-        redisODM({ redis: redisWrapper })({ host, port })
+        redisODM({ redis: redisWrapper, host, port })
           .create({ key: data.id, data: data }).should.include
           .keys(expectedModelObjProperties))
 
       // eslint-disable-next-line no-undef
       it('should map the data properly', () => {
-        const modelObj = redisODM({ redis: redisWrapper })({ host, port })
+        const modelObj = redisODM({ redis: redisWrapper, host, port })
           .create({ key: data.id, data: data })
         const modelObjData = modelObj.data
 
@@ -90,12 +90,12 @@ describe('RedisODM', () => {
 
     // eslint-disable-next-line no-undef
     it('should return a promise', () =>
-      redisODM({ redis: redisWrapper })({ host, port })
+      redisODM({ redis: redisWrapper, host, port })
         .create({ key: data.id, data: data }).save().should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
     it('should be successful', async () =>
-      redisODM({ redis: redisWrapper })({ host, port })
+      redisODM({ redis: redisWrapper, host, port })
         .create({ key: data.id, data: data }).save().should.eventually
         .equal(positiveReply))
   })

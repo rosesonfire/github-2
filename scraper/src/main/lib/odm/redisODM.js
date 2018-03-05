@@ -22,7 +22,7 @@ function * flattenData (data) {
 //     { 'name': 'abc', 'code': 56 },
 //     { 'name': 'efg', 'code': 84 }
 //   ]
-export default ({ redis }) => ({ host, port }) => {
+export default ({ redis, host, port }) => {
   const client = redis({ host, port })
 
   // Returns an ODM
