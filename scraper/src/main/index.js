@@ -2,10 +2,10 @@ import { dependencies } from './../ioc'
 
 // Start scrapping
 const scrape = async () => {
-  const scraper = await dependencies.scraper
+  const scrape = await dependencies.scrape
   const redisClient = await dependencies.redisClient
 
-  await scraper()
+  await scrape()
   await redisClient.quit()
 }
 

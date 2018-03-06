@@ -1,13 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import expect from './../setup'
 // unit
-import scraper from './../../main/services/scraper'
+import scrape from './../../main/services/scrape'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
 import redisODMMock, { redisModelObjectMock } from './../mocks/lib/odm/redisODM'
 
 // eslint-disable-next-line no-undef
-describe('Scraper', () => {
+describe('Scrape', () => {
   let
     mocks,
     getBaseUrl,
@@ -108,7 +108,7 @@ describe('Scraper', () => {
   afterEach(() => mocks.forEach(mock => mock.verify()))
 
   // eslint-disable-next-line no-undef
-  describe('When calling scraper', () => {
+  describe('When scraping', () => {
     // eslint-disable-next-line no-undef
     describe('When fetching single data', () => {
       // eslint-disable-next-line no-undef
@@ -121,13 +121,13 @@ describe('Scraper', () => {
 
       // eslint-disable-next-line no-undef
       it('should return a promise', () =>
-        scraper(
+        scrape(
           { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }
         )().should.be.a('promise'))
 
       // eslint-disable-next-line no-undef
       it('should persist single data', () =>
-        scraper(
+        scrape(
           { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }
         )().should.eventually.equalTo([positiveReply]))
     })
@@ -145,7 +145,7 @@ describe('Scraper', () => {
 
       // eslint-disable-next-line no-undef
       it('should persist mutiple data', () =>
-        scraper(
+        scrape(
           { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }
         )().should.eventually
           .equalTo(multipleJsonData.feed.entry.map(en => positiveReply)))

@@ -1,9 +1,9 @@
 import { createNewInstance } from './../iocHelper'
-import scraper from './../../main/services/scraper'
+import scrape from './../../main/services/scrape'
 import { scraperConfig } from './../../config'
 
 exports = module.exports = createNewInstance({
-  instanceConstructor: scraper,
+  instanceConstructor: scrape,
   configuration: {
     url: scraperConfig.endpoint
   },
