@@ -135,7 +135,7 @@ describe('Scrape', () => {
         scrape(
           { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }
         )().should.eventually
-          .equalTo(multipleJsonData.feed.entry.map(en => positiveReply)))
+          .equalTo(multipleJsonData.feed.entry.map(feedEntry => positiveReply)))
     })
   })
 })
