@@ -39,11 +39,12 @@ describe('XML2JSWrapper', () => {
 
       // eslint-disable-next-line no-undef
       it('should return a promise', () =>
-        xml2jsWrapper({ xml2js })({ xml }).should.be.a('promise'))
+        xml2jsWrapper({ xml2js }).convert(xml).should.be.a('promise'))
 
       // eslint-disable-next-line no-undef
       it('should return correct json', () =>
-        xml2jsWrapper({ xml2js })({ xml }).should.eventually.equal(jsonData))
+        xml2jsWrapper({ xml2js }).convert(xml).should.eventually
+          .equal(jsonData))
     })
 
     // eslint-disable-next-line no-undef
@@ -56,7 +57,7 @@ describe('XML2JSWrapper', () => {
 
       // eslint-disable-next-line no-undef
       it('should fail', () =>
-        xml2jsWrapper({ xml2js })({ xml }).should.eventually.be.rejected)
+        xml2jsWrapper({ xml2js }).convert(xml).should.eventually.be.rejected)
     })
 
     // eslint-disable-next-line no-undef
@@ -69,7 +70,7 @@ describe('XML2JSWrapper', () => {
 
       // eslint-disable-next-line no-undef
       it('should fail', () =>
-        xml2jsWrapper({ xml2js })({ xml }).should.eventually.be.rejected)
+        xml2jsWrapper({ xml2js }).convert(xml).should.eventually.be.rejected)
     })
   })
 
@@ -83,7 +84,7 @@ describe('XML2JSWrapper', () => {
     })
     // eslint-disable-next-line no-undef
     it('should be called with proper arguments', () => {
-      xml2jsWrapper({ xml2js })({ xml })
+      xml2jsWrapper({ xml2js }).convert(xml)
       '1'.should.equal('1')
     })
   })

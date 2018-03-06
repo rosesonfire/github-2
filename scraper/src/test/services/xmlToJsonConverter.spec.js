@@ -3,7 +3,7 @@ import expect from './../setup'
 // unit
 import xmlToJsonConverter from './../../main/services/xmlToJsonConverter'
 // mocks
-import plainOldMockObject from './../mocks/others/plainOldMockObject'
+import xml2jsWrapperMock from './../mocks/lib/wrappers/xml2jsWrapper'
 
 // eslint-disable-next-line no-undef
 describe('XmlToJsonConverter', () => {
@@ -77,9 +77,9 @@ describe('XmlToJsonConverter', () => {
   describe('When converting data with sync converter', () => {
     // eslint-disable-next-line no-undef
     beforeEach(() => {
-      converter = plainOldMockObject()
-      mocks = [ converter ]
-      converter.once().withExactArgs({ xml }).returns(jsonData)
+      converter = xml2jsWrapperMock()
+      mocks = [ converter.convert ]
+      converter.convert.once().withExactArgs({ xml }).returns(jsonData)
     })
 
     // eslint-disable-next-line no-undef
@@ -96,9 +96,9 @@ describe('XmlToJsonConverter', () => {
   describe('When converting data with async converter', () => {
     // eslint-disable-next-line no-undef
     beforeEach(() => {
-      asyncConverter = plainOldMockObject()
-      mocks = [ asyncConverter ]
-      asyncConverter.once().withExactArgs({ xml })
+      asyncConverter = xml2jsWrapperMock()
+      mocks = [ asyncConverter.convert ]
+      asyncConverter.convert.once().withExactArgs({ xml })
         .returns(Promise.resolve(jsonData))
     })
 
