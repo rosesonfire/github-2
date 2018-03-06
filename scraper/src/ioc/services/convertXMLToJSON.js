@@ -1,8 +1,8 @@
 import { createNewInstance } from './../iocHelper'
-import xmlToJsonConverter from './../../main/services/xmlToJsonConverter'
+import convertXMLToJSON from './../../main/services/convertXMLToJSON'
 
 exports = module.exports = createNewInstance({
-  instanceConstructor: xmlToJsonConverter,
+  instanceConstructor: convertXMLToJSON,
   dependencyConfig: {
     converter: 'lib/wrappers/xml2jsWrapper'
   }

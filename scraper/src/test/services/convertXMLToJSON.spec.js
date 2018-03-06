@@ -1,12 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import expect from './../setup'
 // unit
-import xmlToJsonConverter from './../../main/services/xmlToJsonConverter'
+import convertXMLToJSON from './../../main/services/convertXMLToJSON'
 // mocks
 import xml2jsWrapperMock from './../mocks/lib/wrappers/xml2jsWrapper'
 
 // eslint-disable-next-line no-undef
-describe('XmlToJsonConverter', () => {
+describe('ConvertXMLToJSON', () => {
   let
     mocks,
     converter,
@@ -84,11 +84,11 @@ describe('XmlToJsonConverter', () => {
 
     // eslint-disable-next-line no-undef
     it('should return a promise', () =>
-      xmlToJsonConverter({ converter })({ xml }).should.be.a('promise'))
+      convertXMLToJSON({ converter })({ xml }).should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
     it('should get converted data', () =>
-      xmlToJsonConverter({ converter })({ xml }).should.eventually
+      convertXMLToJSON({ converter })({ xml }).should.eventually
         .equal(jsonData))
   })
 
@@ -104,7 +104,7 @@ describe('XmlToJsonConverter', () => {
 
     // eslint-disable-next-line no-undef
     it('should get converted data', () =>
-      xmlToJsonConverter({ converter: asyncConverter })({ xml }).should
+      convertXMLToJSON({ converter: asyncConverter })({ xml }).should
         .eventually.equal(jsonData))
   })
 })

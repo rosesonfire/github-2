@@ -12,7 +12,7 @@ describe('Scraper', () => {
     mocks,
     getBaseUrl,
     fetchData,
-    xmlToJsonConverter,
+    convertXMLToJSON,
     redisODM,
     redisModelObject,
     url,
@@ -94,14 +94,14 @@ describe('Scraper', () => {
   beforeEach(() => {
     getBaseUrl = plainOldMockObject()
     fetchData = plainOldMockObject()
-    xmlToJsonConverter = plainOldMockObject()
+    convertXMLToJSON = plainOldMockObject()
     redisODM = redisODMMock()
     redisModelObject = redisModelObjectMock()
-    mocks = [ getBaseUrl, fetchData, xmlToJsonConverter, redisODM.create,
+    mocks = [ getBaseUrl, fetchData, convertXMLToJSON, redisODM.create,
       redisModelObject.save ]
     getBaseUrl.once().withExactArgs({ url }).resolves(baseUrl)
     fetchData.once().withExactArgs({ url }).resolves(fetchedData)
-    xmlToJsonConverter.once().withExactArgs({ xml: fetchedData.data })
+    convertXMLToJSON.once().withExactArgs({ xml: fetchedData.data })
   })
 
   // eslint-disable-next-line no-undef
@@ -113,7 +113,7 @@ describe('Scraper', () => {
     describe('When fetching single data', () => {
       // eslint-disable-next-line no-undef
       beforeEach(() => {
-        xmlToJsonConverter.resolves(singleJsonData)
+        convertXMLToJSON.resolves(singleJsonData)
         redisODM.create.once().withExactArgs(singlePassedData)
           .returns(redisModelObject)
         redisModelObject.save.once().withExactArgs().resolves(positiveReply)
@@ -122,13 +122,13 @@ describe('Scraper', () => {
       // eslint-disable-next-line no-undef
       it('should return a promise', () =>
         scraper(
-          { url, getBaseUrl, fetchData, xmlToJsonConverter, odm: redisODM }
+          { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }
         )().should.be.a('promise'))
 
       // eslint-disable-next-line no-undef
       it('should persist single data', () =>
         scraper(
-          { url, getBaseUrl, fetchData, xmlToJsonConverter, odm: redisODM }
+          { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }
         )().should.eventually.equalTo([positiveReply]))
     })
 
@@ -136,7 +136,7 @@ describe('Scraper', () => {
     describe('When fetching multiple data', () => {
       // eslint-disable-next-line no-undef
       beforeEach(() => {
-        xmlToJsonConverter.resolves(multipleJsonData)
+        convertXMLToJSON.resolves(multipleJsonData)
         redisODM.create.exactly(multipleJsonData.feed.entry.length)
           .returns(redisModelObject)
         redisModelObject.save.exactly(multipleJsonData.feed.entry.length)
@@ -146,7 +146,7 @@ describe('Scraper', () => {
       // eslint-disable-next-line no-undef
       it('should persist mutiple data', () =>
         scraper(
-          { url, getBaseUrl, fetchData, xmlToJsonConverter, odm: redisODM }
+          { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }
         )().should.eventually
           .equalTo(multipleJsonData.feed.entry.map(en => positiveReply)))
     })
