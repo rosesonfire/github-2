@@ -6,4 +6,13 @@ chai.should()
 chai.use(assertArrays)
 chai.use(chaiAsPromised)
 
-export const expect = chai.expect
+/* eslint-disable no-undef */
+exports = module.exports = ({
+  expect: chai.expect,
+  describe,
+  before,
+  beforeEach,
+  afterEach,
+  it
+})
+/* eslint-enable no-undef */

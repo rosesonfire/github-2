@@ -1,12 +1,10 @@
-// eslint-disable-next-line no-unused-vars
-import expect from './../../setup'
+import { describe, before, beforeEach, afterEach, it } from './../../setup'
 // unit
 import redisODM from './../../../main/lib/odm/redisODM'
 // mocks
 import redisClientWrapperMock
   from './../../mocks/lib/wrappers/redisClientWrapper'
 
-// eslint-disable-next-line no-undef
 describe('RedisODM', () => {
   let
     mocks,
@@ -17,7 +15,6 @@ describe('RedisODM', () => {
     data,
     positiveReply
 
-  // eslint-disable-next-line no-undef
   before(() => {
     expectedODMProperties = ['create']
     expectedModelObjProperties = ['key', 'data', 'save']
@@ -26,33 +23,25 @@ describe('RedisODM', () => {
     positiveReply = 'OK'
   })
 
-  // eslint-disable-next-line no-undef
   beforeEach(() => {
     redisClient = redisClientWrapperMock()
   })
 
-  // eslint-disable-next-line no-undef
   afterEach(() => mocks.forEach(mock => mock.verify()))
 
-  // eslint-disable-next-line no-undef
   describe('When creating redisODM', () => {
-    // eslint-disable-next-line no-undef
     beforeEach(() => {
       mocks = []
     })
-    // eslint-disable-next-line no-undef
     it('should have expected properties', () =>
       redisODM({ redisClient }).should.have.all.keys(expectedODMProperties))
 
-    // eslint-disable-next-line no-undef
     describe('When creating a model object', () => {
-      // eslint-disable-next-line no-undef
       it('should have expected properties', () =>
         redisODM({ redisClient })
           .create({ key: data.id, data: data }).should.have.all
           .keys(expectedModelObjProperties))
 
-      // eslint-disable-next-line no-undef
       it('should map the data properly', () => {
         const modelObj = redisODM({ redisClient })
           .create({ key: data.id, data: data })
@@ -69,21 +58,17 @@ describe('RedisODM', () => {
     })
   })
 
-  // eslint-disable-next-line no-undef
   describe('When saving a model object', () => {
-    // eslint-disable-next-line no-undef
     beforeEach(() => {
       redisClient.hmset.once().withExactArgs(...passedData)
         .resolves(positiveReply)
       mocks = [ redisClient.hmset ]
     })
 
-    // eslint-disable-next-line no-undef
     it('should return a promise', () =>
       redisODM({ redisClient })
         .create({ key: data.id, data: data }).save().should.be.a('promise'))
 
-    // eslint-disable-next-line no-undef
     it('should be successful', async () =>
       redisODM({ redisClient })
         .create({ key: data.id, data: data }).save().should.eventually

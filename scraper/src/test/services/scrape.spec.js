@@ -1,12 +1,10 @@
-// eslint-disable-next-line no-unused-vars
-import expect from './../setup'
+import { describe, before, beforeEach, afterEach, it } from './../setup'
 // unit
 import scrape from './../../main/services/scrape'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
 import redisODMMock, { redisModelObjectMock } from './../mocks/lib/odm/redisODM'
 
-// eslint-disable-next-line no-undef
 describe('Scrape', () => {
   let
     mocks,
@@ -23,7 +21,6 @@ describe('Scrape', () => {
     singlePassedData,
     positiveReply
 
-  // eslint-disable-next-line no-undef
   before(() => {
     url = 'https://github.com/timeline'
     baseUrl = 'https://github.com/'
@@ -90,7 +87,6 @@ describe('Scrape', () => {
     positiveReply = 'OK'
   })
 
-  // eslint-disable-next-line no-undef
   beforeEach(() => {
     getBaseUrl = plainOldMockObject()
     fetchData = plainOldMockObject()
@@ -104,14 +100,10 @@ describe('Scrape', () => {
     convertXMLToJSON.once().withExactArgs({ xml: fetchedData.data })
   })
 
-  // eslint-disable-next-line no-undef
   afterEach(() => mocks.forEach(mock => mock.verify()))
 
-  // eslint-disable-next-line no-undef
   describe('When scraping', () => {
-    // eslint-disable-next-line no-undef
     describe('When fetching single data', () => {
-      // eslint-disable-next-line no-undef
       beforeEach(() => {
         convertXMLToJSON.resolves(singleJsonData)
         redisODM.create.once().withExactArgs(singlePassedData)
@@ -119,22 +111,18 @@ describe('Scrape', () => {
         redisModelObject.save.once().withExactArgs().resolves(positiveReply)
       })
 
-      // eslint-disable-next-line no-undef
       it('should return a promise', () =>
         scrape(
           { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }
         )().should.be.a('promise'))
 
-      // eslint-disable-next-line no-undef
       it('should persist single data', () =>
         scrape(
           { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }
         )().should.eventually.equalTo([positiveReply]))
     })
 
-    // eslint-disable-next-line no-undef
     describe('When fetching multiple data', () => {
-      // eslint-disable-next-line no-undef
       beforeEach(() => {
         convertXMLToJSON.resolves(multipleJsonData)
         redisODM.create.exactly(multipleJsonData.feed.entry.length)
@@ -143,7 +131,6 @@ describe('Scrape', () => {
           .resolves(positiveReply)
       })
 
-      // eslint-disable-next-line no-undef
       it('should persist mutiple data', () =>
         scrape(
           { url, getBaseUrl, fetchData, convertXMLToJSON, odm: redisODM }

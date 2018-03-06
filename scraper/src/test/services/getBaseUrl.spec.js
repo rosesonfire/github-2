@@ -1,11 +1,9 @@
-// eslint-disable-next-line no-unused-vars
-import expect from './../setup'
+import { describe, before, beforeEach, afterEach, it } from './../setup'
 // unit
 import getBaseUrl from './../../main/services/getBaseUrl'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
 
-// eslint-disable-next-line no-undef
 describe('GetBaseUrl', () => {
   let
     mocks,
@@ -17,7 +15,6 @@ describe('GetBaseUrl', () => {
     baseUrl,
     parsedUrl
 
-  // eslint-disable-next-line no-undef
   before(() => {
     url = 'https://github.com/timeline'
     protocol = 'https:'
@@ -29,30 +26,23 @@ describe('GetBaseUrl', () => {
     }
   })
 
-  // eslint-disable-next-line no-undef
   afterEach(() => mocks.forEach(mock => mock.verify()))
 
-  // eslint-disable-next-line no-undef
   describe('When getting base url with sync urlParser', () => {
-    // eslint-disable-next-line no-undef
     beforeEach(() => {
       urlParser = plainOldMockObject()
       mocks = [ urlParser ]
       urlParser.once().withExactArgs(url).returns(parsedUrl)
     })
 
-    // eslint-disable-next-line no-undef
     it('should return a promise', () => getBaseUrl({ urlParser })({ url })
       .should.be.a('promise'))
 
-    // eslint-disable-next-line no-undef
     it('should get base url', () =>
       getBaseUrl({ urlParser })({ url }).should.eventually.equal(baseUrl))
   })
 
-  // eslint-disable-next-line no-undef
   describe('When getting base url with async urlParser', () => {
-    // eslint-disable-next-line no-undef
     beforeEach(() => {
       asyncUrlParser = plainOldMockObject()
       mocks = [ asyncUrlParser ]
@@ -60,7 +50,6 @@ describe('GetBaseUrl', () => {
         .returns(Promise.resolve(parsedUrl))
     })
 
-    // eslint-disable-next-line no-undef
     it('should get base url', () =>
       getBaseUrl({ urlParser: asyncUrlParser })({ url }).should.eventually
         .equal(baseUrl))

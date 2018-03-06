@@ -1,11 +1,9 @@
-// eslint-disable-next-line no-unused-vars
-import expect from './../setup'
+import { describe, before, beforeEach, afterEach, it } from './../setup'
 // unit
 import convertXMLToJSON from './../../main/services/convertXMLToJSON'
 // mocks
 import xml2jsWrapperMock from './../mocks/lib/wrappers/xml2jsWrapper'
 
-// eslint-disable-next-line no-undef
 describe('ConvertXMLToJSON', () => {
   let
     mocks,
@@ -14,7 +12,6 @@ describe('ConvertXMLToJSON', () => {
     xml,
     jsonData
 
-  // eslint-disable-next-line no-undef
   before(() => {
     xml =
 /* eslint-disable */
@@ -70,31 +67,24 @@ describe('ConvertXMLToJSON', () => {
     jsonData = {}
   })
 
-  // eslint-disable-next-line no-undef
   afterEach(() => mocks.forEach(mock => mock.verify()))
 
-  // eslint-disable-next-line no-undef
   describe('When converting data with sync converter', () => {
-    // eslint-disable-next-line no-undef
     beforeEach(() => {
       converter = xml2jsWrapperMock()
       mocks = [ converter.convert ]
       converter.convert.once().withExactArgs(xml).returns(jsonData)
     })
 
-    // eslint-disable-next-line no-undef
     it('should return a promise', () =>
       convertXMLToJSON({ converter })({ xml }).should.be.a('promise'))
 
-    // eslint-disable-next-line no-undef
     it('should get converted data', () =>
       convertXMLToJSON({ converter })({ xml }).should.eventually
         .equal(jsonData))
   })
 
-  // eslint-disable-next-line no-undef
   describe('When converting data with async converter', () => {
-    // eslint-disable-next-line no-undef
     beforeEach(() => {
       asyncConverter = xml2jsWrapperMock()
       mocks = [ asyncConverter.convert ]
@@ -102,7 +92,6 @@ describe('ConvertXMLToJSON', () => {
         .returns(Promise.resolve(jsonData))
     })
 
-    // eslint-disable-next-line no-undef
     it('should get converted data', () =>
       convertXMLToJSON({ converter: asyncConverter })({ xml }).should
         .eventually.equal(jsonData))
