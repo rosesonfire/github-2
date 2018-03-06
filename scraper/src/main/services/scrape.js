@@ -18,7 +18,7 @@ const extract = ({ feed }, baseUrl) => {
 export default ({ url, getBaseUrl, fetchData, convertXMLToJSON, odm }) =>
   async () => {
     const baseUrl = await getBaseUrl({ url })
-    const { data } = await fetchData({ url })
+    const { data } = await fetchData(url)
     const jsonData = await convertXMLToJSON(data)
     const requiredData = extract(jsonData, baseUrl)
 

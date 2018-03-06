@@ -96,7 +96,7 @@ describe('Scrape', () => {
     mocks = [ getBaseUrl, fetchData, convertXMLToJSON, redisODM.create,
       redisModelObject.save ]
     getBaseUrl.once().withExactArgs({ url }).resolves(baseUrl)
-    fetchData.once().withExactArgs({ url }).resolves(fetchedData)
+    fetchData.once().withExactArgs(url).resolves(fetchedData)
     convertXMLToJSON.once().withExactArgs(fetchedData.data)
   })
 

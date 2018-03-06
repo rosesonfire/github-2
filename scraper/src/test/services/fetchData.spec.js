@@ -26,10 +26,10 @@ describe('FetchData', () => {
       httpGetter.once().withExactArgs(url).returns(data)
     })
 
-    it('should return a promise', () => fetchData({ httpGetter })({ url })
+    it('should return a promise', () => fetchData({ httpGetter })(url)
       .should.be.a('promise'))
 
-    it('should get base url', () => fetchData({ httpGetter })({ url }).should
+    it('should get base url', () => fetchData({ httpGetter })(url).should
       .eventually.equal(data))
   })
 
@@ -41,7 +41,7 @@ describe('FetchData', () => {
     })
 
     it('should get base url', () =>
-      fetchData({ httpGetter: asyncHttpGetter })({ url }).should.eventually
+      fetchData({ httpGetter: asyncHttpGetter })(url).should.eventually
         .equal(data))
   })
 })
