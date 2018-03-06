@@ -1,7 +1,8 @@
 import sinon from 'sinon'
 
 export const redisClientMock = () => ({
-  hmset: sinon.mock()
+  hmset: sinon.mock(),
+  quit: sinon.mock()
 })
 
 export const redisClientStub = () => ({

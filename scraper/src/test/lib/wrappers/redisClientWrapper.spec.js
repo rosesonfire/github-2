@@ -92,4 +92,20 @@ describe('RedisWrapper', () => {
         '1'.should.equal('1')
       })
   })
+
+  describe('When calling quit in redisWrapper', () => {
+    beforeEach(() => {
+      redisClient = redisClientMock()
+      mocks = [ redis.createClient, redisClient.quit ]
+      redis.createClient.once().withExactArgs({ host, port })
+        .returns(redisClient)
+      redisClient.quit.once().withArgs()
+    })
+
+    it('should quit',
+      () => {
+        redisClientWrapper({ redis, host, port }).quit()
+        '1'.should.equal('1')
+      })
+  })
 })
