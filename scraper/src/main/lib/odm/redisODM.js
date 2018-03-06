@@ -24,9 +24,9 @@ function * recurse (entry, preString) {
 
 // Generates a flat array of an object's key and values
 // Example:
-//   { 'name': 'abc', 'code': 56 }
+//   { 'name': 'abc', 'code': 56, 'meta': { 'location': 'a' } }
 //   is generated as
-//   [ 'name', 'abc', 'code', 56 ]
+//   [ 'name', 'abc', 'code', 56, 'meta:location': 'a' ]
 function * flattenData (data, preString = '') {
   const entries = Object.entries(data)
   for (let i = 0, len = entries.length; i < len; i++) {
