@@ -77,10 +77,10 @@ describe('ConvertXMLToJSON', () => {
     })
 
     it('should return a promise', () =>
-      convertXMLToJSON({ converter })({ xml }).should.be.a('promise'))
+      convertXMLToJSON({ converter })(xml).should.be.a('promise'))
 
     it('should get converted data', () =>
-      convertXMLToJSON({ converter })({ xml }).should.eventually
+      convertXMLToJSON({ converter })(xml).should.eventually
         .equal(jsonData))
   })
 
@@ -93,7 +93,7 @@ describe('ConvertXMLToJSON', () => {
     })
 
     it('should get converted data', () =>
-      convertXMLToJSON({ converter: asyncConverter })({ xml }).should
+      convertXMLToJSON({ converter: asyncConverter })(xml).should
         .eventually.equal(jsonData))
   })
 })

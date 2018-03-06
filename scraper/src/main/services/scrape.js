@@ -19,7 +19,7 @@ export default ({ url, getBaseUrl, fetchData, convertXMLToJSON, odm }) =>
   async () => {
     const baseUrl = await getBaseUrl({ url })
     const { data } = await fetchData({ url })
-    const jsonData = await convertXMLToJSON({ xml: data })
+    const jsonData = await convertXMLToJSON(data)
     const requiredData = extract(jsonData, baseUrl)
 
     return Promise.all(requiredData.map(reqData =>
