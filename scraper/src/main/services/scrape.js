@@ -17,7 +17,7 @@ const extract = ({ feed }, baseUrl) => {
 // ETL's required data from endpoint to persistence
 export default ({ url, getBaseUrl, fetchData, convertXMLToJSON, odm }) =>
   async () => {
-    const baseUrl = await getBaseUrl({ url })
+    const baseUrl = await getBaseUrl(url)
     const { data } = await fetchData(url)
     const jsonData = await convertXMLToJSON(data)
     const requiredData = extract(jsonData, baseUrl)

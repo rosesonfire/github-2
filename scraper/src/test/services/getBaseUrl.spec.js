@@ -35,11 +35,11 @@ describe('GetBaseUrl', () => {
       urlParser.once().withExactArgs(url).returns(parsedUrl)
     })
 
-    it('should return a promise', () => getBaseUrl({ urlParser })({ url })
+    it('should return a promise', () => getBaseUrl({ urlParser })(url)
       .should.be.a('promise'))
 
     it('should get base url', () =>
-      getBaseUrl({ urlParser })({ url }).should.eventually.equal(baseUrl))
+      getBaseUrl({ urlParser })(url).should.eventually.equal(baseUrl))
   })
 
   describe('When getting base url with async urlParser', () => {
@@ -51,7 +51,7 @@ describe('GetBaseUrl', () => {
     })
 
     it('should get base url', () =>
-      getBaseUrl({ urlParser: asyncUrlParser })({ url }).should.eventually
+      getBaseUrl({ urlParser: asyncUrlParser })(url).should.eventually
         .equal(baseUrl))
   })
 })
