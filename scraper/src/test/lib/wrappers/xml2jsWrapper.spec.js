@@ -64,6 +64,7 @@ describe('XML2JSWrapper', () => {
       mocks = [xml2js.parseString]
       xml2js.parseString.once().withArgs(xml)
     })
+
     it('should be called with proper arguments', () => {
       xml2jsWrapper({ xml2js }).convert(xml)
       '1'.should.equal('1')

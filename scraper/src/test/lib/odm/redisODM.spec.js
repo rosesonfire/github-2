@@ -33,6 +33,7 @@ describe('RedisODM', () => {
     beforeEach(() => {
       mocks = []
     })
+
     it('should have expected properties', () =>
       redisODM({ redisClient }).should.have.all.keys(expectedODMProperties))
 

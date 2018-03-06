@@ -28,6 +28,7 @@ export default ({ redisClient }) => ({
   //   hash object
   create: ({ key, data }) => {
     const flattenedData = [...flattenData(data)]
+
     return {
       key,
       data,
