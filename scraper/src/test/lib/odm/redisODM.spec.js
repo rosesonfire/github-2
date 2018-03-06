@@ -11,15 +11,34 @@ describe('RedisODM', () => {
     redisClient,
     expectedODMProperties,
     expectedModelObjProperties,
-    passedData,
     data,
+    flattenedData,
     positiveReply
 
   before(() => {
     expectedODMProperties = ['create']
     expectedModelObjProperties = ['key', 'data', 'save']
-    passedData = [1, 'id', 1, 'value', '1']
-    data = { 'id': 1, 'value': '1' }
+    data = {
+      id: 126,
+      name: 'someName',
+      entry: {
+        id: 78,
+        value: 45,
+        description: {
+          'date': new Date(Date.parse('2018-03-01T23:58:35Z')),
+          'location': 'someLocation'
+        }
+      },
+      meta: {
+        meta1: 'hello',
+        meta2: true
+      }
+    }
+    flattenedData = [126, 'id', '126', 'name', 'someName', 'entry:id', '78',
+      'entry:value', '45', 'entry:description:date',
+      'Fri Mar 02 2018 05:58:35 GMT+0600 (+06)',
+      'entry:description:location', 'someLocation', 'meta:meta1', 'hello',
+      'meta:meta2', 'true']
     positiveReply = 'OK'
   })
 
@@ -61,7 +80,7 @@ describe('RedisODM', () => {
 
   describe('When saving a model object', () => {
     beforeEach(() => {
-      redisClient.hmset.once().withExactArgs(...passedData)
+      redisClient.hmset.once().withExactArgs(...flattenedData)
         .resolves(positiveReply)
       mocks = [ redisClient.hmset ]
     })
