@@ -8,7 +8,7 @@ exports = module.exports = createNewInstance({
     url: scraperConfig.endpoint
   },
   dependencyConfig: {
-    baseUrlGetter: 'services/baseUrlGetter',
+    getBaseUrl: 'services/getBaseUrl',
     dataFetcher: 'services/dataFetcher',
     xmlToJsonConverter: 'services/xmlToJsonConverter',
     odm: 'lib/odm/redisODM'

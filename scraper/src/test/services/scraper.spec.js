@@ -10,7 +10,7 @@ import redisODMMock, { redisModelObjectMock } from './../mocks/lib/odm/redisODM'
 describe('Scraper', () => {
   let
     mocks,
-    baseUrlGetter,
+    getBaseUrl,
     dataFetcher,
     xmlToJsonConverter,
     redisODM,
@@ -92,14 +92,14 @@ describe('Scraper', () => {
 
   // eslint-disable-next-line no-undef
   beforeEach(() => {
-    baseUrlGetter = plainOldMockObject()
+    getBaseUrl = plainOldMockObject()
     dataFetcher = plainOldMockObject()
     xmlToJsonConverter = plainOldMockObject()
     redisODM = redisODMMock()
     redisModelObject = redisModelObjectMock()
-    mocks = [ baseUrlGetter, dataFetcher, xmlToJsonConverter, redisODM.create,
+    mocks = [ getBaseUrl, dataFetcher, xmlToJsonConverter, redisODM.create,
       redisModelObject.save ]
-    baseUrlGetter.once().withExactArgs({ url }).resolves(baseUrl)
+    getBaseUrl.once().withExactArgs({ url }).resolves(baseUrl)
     dataFetcher.once().withExactArgs({ url }).resolves(fetchedData)
     xmlToJsonConverter.once().withExactArgs({ xml: fetchedData.data })
   })
@@ -122,13 +122,13 @@ describe('Scraper', () => {
       // eslint-disable-next-line no-undef
       it('should return a promise', () =>
         scraper(
-          { url, baseUrlGetter, dataFetcher, xmlToJsonConverter, odm: redisODM }
+          { url, getBaseUrl, dataFetcher, xmlToJsonConverter, odm: redisODM }
         )().should.be.a('promise'))
 
       // eslint-disable-next-line no-undef
       it('should persist single data', () =>
         scraper(
-          { url, baseUrlGetter, dataFetcher, xmlToJsonConverter, odm: redisODM }
+          { url, getBaseUrl, dataFetcher, xmlToJsonConverter, odm: redisODM }
         )().should.eventually.equalTo([positiveReply]))
     })
 
@@ -146,7 +146,7 @@ describe('Scraper', () => {
       // eslint-disable-next-line no-undef
       it('should persist mutiple data', () =>
         scraper(
-          { url, baseUrlGetter, dataFetcher, xmlToJsonConverter, odm: redisODM }
+          { url, getBaseUrl, dataFetcher, xmlToJsonConverter, odm: redisODM }
         )().should.eventually
           .equalTo(multipleJsonData.feed.entry.map(en => positiveReply)))
     })

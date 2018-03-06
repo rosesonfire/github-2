@@ -1,12 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import expect from './../setup'
 // unit
-import baseUrlGetter from './../../main/services/baseUrlGetter'
+import getBaseUrl from './../../main/services/getBaseUrl'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
 
 // eslint-disable-next-line no-undef
-describe('BaseUrlGetter', () => {
+describe('GetBaseUrl', () => {
   let
     mocks,
     urlParser,
@@ -42,12 +42,12 @@ describe('BaseUrlGetter', () => {
     })
 
     // eslint-disable-next-line no-undef
-    it('should return a promise', () => baseUrlGetter({ urlParser })({ url })
+    it('should return a promise', () => getBaseUrl({ urlParser })({ url })
       .should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
     it('should get base url', () =>
-      baseUrlGetter({ urlParser })({ url }).should.eventually.equal(baseUrl))
+      getBaseUrl({ urlParser })({ url }).should.eventually.equal(baseUrl))
   })
 
   // eslint-disable-next-line no-undef
@@ -62,7 +62,7 @@ describe('BaseUrlGetter', () => {
 
     // eslint-disable-next-line no-undef
     it('should get base url', () =>
-      baseUrlGetter({ urlParser: asyncUrlParser })({ url }).should.eventually
+      getBaseUrl({ urlParser: asyncUrlParser })({ url }).should.eventually
         .equal(baseUrl))
   })
 })

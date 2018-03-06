@@ -1,9 +1,9 @@
 import { createNewInstance } from './../iocHelper'
-import baseUrlGetter from './../../main/services/baseUrlGetter'
+import getBaseUrl from './../../main/services/getBaseUrl'
 import url from 'url'
 
 exports = module.exports = createNewInstance({
-  instanceConstructor: baseUrlGetter,
+  instanceConstructor: getBaseUrl,
   dependencyInstances: {
     urlParser: url.parse.bind(url)
   }
