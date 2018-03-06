@@ -9,7 +9,7 @@ exports = module.exports = createNewInstance({
   },
   dependencyConfig: {
     getBaseUrl: 'services/getBaseUrl',
-    dataFetcher: 'services/dataFetcher',
+    fetchData: 'services/fetchData',
     xmlToJsonConverter: 'services/xmlToJsonConverter',
     odm: 'lib/odm/redisODM'
   }

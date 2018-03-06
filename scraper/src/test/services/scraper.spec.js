@@ -11,7 +11,7 @@ describe('Scraper', () => {
   let
     mocks,
     getBaseUrl,
-    dataFetcher,
+    fetchData,
     xmlToJsonConverter,
     redisODM,
     redisModelObject,
@@ -93,14 +93,14 @@ describe('Scraper', () => {
   // eslint-disable-next-line no-undef
   beforeEach(() => {
     getBaseUrl = plainOldMockObject()
-    dataFetcher = plainOldMockObject()
+    fetchData = plainOldMockObject()
     xmlToJsonConverter = plainOldMockObject()
     redisODM = redisODMMock()
     redisModelObject = redisModelObjectMock()
-    mocks = [ getBaseUrl, dataFetcher, xmlToJsonConverter, redisODM.create,
+    mocks = [ getBaseUrl, fetchData, xmlToJsonConverter, redisODM.create,
       redisModelObject.save ]
     getBaseUrl.once().withExactArgs({ url }).resolves(baseUrl)
-    dataFetcher.once().withExactArgs({ url }).resolves(fetchedData)
+    fetchData.once().withExactArgs({ url }).resolves(fetchedData)
     xmlToJsonConverter.once().withExactArgs({ xml: fetchedData.data })
   })
 
@@ -122,13 +122,13 @@ describe('Scraper', () => {
       // eslint-disable-next-line no-undef
       it('should return a promise', () =>
         scraper(
-          { url, getBaseUrl, dataFetcher, xmlToJsonConverter, odm: redisODM }
+          { url, getBaseUrl, fetchData, xmlToJsonConverter, odm: redisODM }
         )().should.be.a('promise'))
 
       // eslint-disable-next-line no-undef
       it('should persist single data', () =>
         scraper(
-          { url, getBaseUrl, dataFetcher, xmlToJsonConverter, odm: redisODM }
+          { url, getBaseUrl, fetchData, xmlToJsonConverter, odm: redisODM }
         )().should.eventually.equalTo([positiveReply]))
     })
 
@@ -146,7 +146,7 @@ describe('Scraper', () => {
       // eslint-disable-next-line no-undef
       it('should persist mutiple data', () =>
         scraper(
-          { url, getBaseUrl, dataFetcher, xmlToJsonConverter, odm: redisODM }
+          { url, getBaseUrl, fetchData, xmlToJsonConverter, odm: redisODM }
         )().should.eventually
           .equalTo(multipleJsonData.feed.entry.map(en => positiveReply)))
     })

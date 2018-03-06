@@ -1,9 +1,9 @@
 import { createNewInstance } from './../iocHelper'
-import dataFetcher from './../../main/services/dataFetcher'
+import fetchData from './../../main/services/fetchData'
 import axios from 'axios'
 
 exports = module.exports = createNewInstance({
-  instanceConstructor: dataFetcher,
+  instanceConstructor: fetchData,
   dependencyInstances: {
     httpGetter: axios.get.bind(axios)
   }

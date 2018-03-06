@@ -1,12 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import expect from './../setup'
 // unit
-import dataFetcher from './../../main/services/dataFetcher'
+import fetchData from './../../main/services/fetchData'
 // mocks
 import plainOldMockObject from './../mocks/others/plainOldMockObject'
 
 // eslint-disable-next-line no-undef
-describe('DataFetcher', () => {
+describe('FetchData', () => {
   let
     mocks,
     httpGetter,
@@ -33,11 +33,11 @@ describe('DataFetcher', () => {
     })
 
     // eslint-disable-next-line no-undef
-    it('should return a promise', () => dataFetcher({ httpGetter })({ url })
+    it('should return a promise', () => fetchData({ httpGetter })({ url })
       .should.be.a('promise'))
 
     // eslint-disable-next-line no-undef
-    it('should get base url', () => dataFetcher({ httpGetter })({ url }).should
+    it('should get base url', () => fetchData({ httpGetter })({ url }).should
       .eventually.equal(data))
   })
 
@@ -52,7 +52,7 @@ describe('DataFetcher', () => {
 
     // eslint-disable-next-line no-undef
     it('should get base url', () =>
-      dataFetcher({ httpGetter: asyncHttpGetter })({ url }).should.eventually
+      fetchData({ httpGetter: asyncHttpGetter })({ url }).should.eventually
         .equal(data))
   })
 })
