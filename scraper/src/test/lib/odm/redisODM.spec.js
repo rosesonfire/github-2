@@ -89,7 +89,7 @@ describe('RedisODM', () => {
       redisODM({ redisClient })
         .create({ key: data.id, data: data }).save().should.be.a('promise'))
 
-    it('should be successful', async () =>
+    it('should be successful', () =>
       redisODM({ redisClient })
         .create({ key: data.id, data: data }).save().should.eventually
         .equal(positiveReply))
