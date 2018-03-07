@@ -10,7 +10,8 @@
       "program": "${workspaceFolder}/scraper/dist/main/index.js",
       "preLaunchTask": "clean-build",
       "sourceMaps": true,
-      "protocol": "inspector"
+      "protocol": "inspector",
+      "cwd": "${workspaceFolder}/scraper"
     },
 		{
       "type": "node",
