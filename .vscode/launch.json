@@ -7,7 +7,6 @@
       "type": "node",
       "request": "launch",
       "name": "Start app",
-      "cwd": "${workspaceFolder}/scraper",
       "program": "${workspaceFolder}/scraper/dist/main/index.js",
       "preLaunchTask": "clean-build",
       "sourceMaps": true,
