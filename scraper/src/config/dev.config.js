@@ -1,6 +1,7 @@
 export default {
   scraper: {
-    endpoint: 'https://github.com/timeline'
+    endpoint: 'https://github.com/timeline',
+    fetchInterval: 5000
   },
   db: {
     host: 'localhost',
