@@ -6,7 +6,23 @@
     {
       "label": "clean-build",
       "type": "shell",
-      "command": "cd ${workspaceFolder}/scraper && npm run clean-build"
+      "command": "npm run clean-build",
+      "options": {
+        "cwd": "${workspaceFolder}/scraper"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "docker-compose",
+      "type": "shell",
+      "command": "docker-compose up --build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": "clean-build"
     }
   ]
 }
