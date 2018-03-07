@@ -2,7 +2,7 @@
 export const createDefensivePromise = (executorFunc) =>
   new Promise((resolve, reject) => {
     try {
-      executorFunc(resolve, reject)
+      Promise.resolve(executorFunc(resolve, reject)).catch(err => reject(err))
     } catch (e) {
       reject(e)
     }
