@@ -51,6 +51,7 @@
     "babel-polyfill": "^6.26.0",
     "electrolyte": "^0.5.0",
     "redis": "^2.8.0",
+    "rxjs": "^5.5.6",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
