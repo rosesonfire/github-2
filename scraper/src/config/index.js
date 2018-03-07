@@ -1,8 +1,8 @@
 const devFile = 'dev.config'
 const prodFile = 'prod.config'
 const configOptions = {
-  'production': devFile,
-  'development': prodFile
+  'production': prodFile,
+  'development': devFile
 }
 const env = process.env.NODE_ENV
 const confFile = configOptions[env] || devFile
