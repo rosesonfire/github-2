@@ -7,8 +7,14 @@ services:
      - NODE_ENV=production
      - DB_HOST=scraper-db
      - DB_PORT=6379
+     - SCRAPER_FETCH_INTERVAL=5000
     depends_on:
       - "scraper-db"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
   scraper-db:
     container_name: "scraper-db"
     build: "scraperDB"
