@@ -68,7 +68,7 @@
     "chai-as-promised": "^7.1.1",
     "eslint": "^4.18.1",
     "eslint-config-standard-react": "^6.0.0",
-    "mocha": "^5.0.1",
+    "mocha": "^5.0.4",
     "nodemon": "^1.17.1",
     "nyc": "^11.4.1",
     "sinon": "^4.4.2",
