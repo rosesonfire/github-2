@@ -38,7 +38,10 @@
     "scraper",
     "github",
     "nodejs",
-    "redis"
+    "redis",
+    "RxJS",
+    "streaming",
+    "docker"
   ],
   "author": "rosesonfire",
   "license": "MIT",
