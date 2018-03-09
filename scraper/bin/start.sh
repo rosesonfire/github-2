@@ -1,2 +1,2 @@
 #!/bin/bash
-cd /scraper && npm install --production && npm start
+cd /scraper && npm start
