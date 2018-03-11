@@ -4,11 +4,23 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "clean-build",
+      "label": "clean-build-scraper",
       "type": "shell",
       "command": "npm run clean-build",
       "options": {
         "cwd": "${workspaceFolder}/scraper"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "clean-build-scraper-api",
+      "type": "shell",
+      "command": "npm run clean-build",
+      "options": {
+        "cwd": "${workspaceFolder}/scraperAPI"
       },
       "group": {
         "kind": "build",
@@ -22,7 +34,7 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": "clean-build"
+      "dependsOn": ["clean-build-scraper", "clean-build-scraper-api"]
     }
   ]
 }

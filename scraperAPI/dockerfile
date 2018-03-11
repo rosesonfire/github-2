@@ -1,0 +1,8 @@
+FROM node
+COPY package.json /scraper-api/
+COPY package-lock.json /scraper-api/
+COPY dist /scraper-api/dist
+COPY bin /scraper-api/bin
+RUN cd /scraper-api && npm install --production
+ENV NODE_ENV=production
+CMD [ "/scraper-api/bin/start.sh" ]

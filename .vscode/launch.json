@@ -6,9 +6,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Start app",
+      "name": "Start scraper",
       "program": "${workspaceFolder}/scraper/dist/main/index.js",
-      "preLaunchTask": "clean-build",
+      "preLaunchTask": "clean-build-scraper",
       "sourceMaps": true,
       "protocol": "inspector",
       "cwd": "${workspaceFolder}/scraper"
@@ -16,7 +16,7 @@
 		{
       "type": "node",
       "request": "launch",
-      "name": "Mocha Tests",
+      "name": "Mocha Tests - scraper",
       "program": "${workspaceFolder}/scraper/node_modules/mocha/bin/_mocha",
       "protocol": "inspector",
       "args": [
@@ -28,7 +28,35 @@
         "${workspaceFolder}/scraper/dist/test/**/*.spec.js"
       ],
       "internalConsoleOptions": "openOnSessionStart",
-      "preLaunchTask": "clean-build",
+      "preLaunchTask": "clean-build-scraper",
+      "sourceMaps": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Start scraper-api",
+      "program": "${workspaceFolder}/scraperAPI/dist/main/index.js",
+      "preLaunchTask": "clean-build-scraper-api",
+      "sourceMaps": true,
+      "protocol": "inspector",
+      "cwd": "${workspaceFolder}/scraperAPI"
+    },
+		{
+      "type": "node",
+      "request": "launch",
+      "name": "Mocha Tests - scraper-api",
+      "program": "${workspaceFolder}/scraperAPI/node_modules/mocha/bin/_mocha",
+      "protocol": "inspector",
+      "args": [
+        "-u",
+        "tdd",
+        "--timeout",
+        "999999",
+        "--colors",
+        "${workspaceFolder}/scraperAPI/dist/test/**/*.spec.js"
+      ],
+      "internalConsoleOptions": "openOnSessionStart",
+      "preLaunchTask": "clean-build-scraper-api",
       "sourceMaps": true
     }
 	]
