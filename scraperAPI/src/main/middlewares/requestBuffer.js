@@ -1,11 +1,9 @@
-// implement timeout
-// test for invalid url
-// authentication and secret keys
-// test if response changes
-// should not directly send the requestID
+// TODO: test for invalid url
+// TODO: authentication and secret keys
+// TODO: should not directly send the requestID
 /**
  * Creates a response buffer
- * @param Number requestBufferLimit the size of the buffer
+ * @param {Number} requestBufferLimit the size of the buffer
  * @param {Number} ttl the maximum time (in milliseconds) to live for each async
  *                     task
  */
@@ -16,8 +14,7 @@ const createResponseBuffer = (requestBufferLimit, ttl) => {
   const requestIDs = Array(requestBufferLimit).fill(0)
     .map((value, index) => index)
 
-  // Removes resolved and timedout buffered responses
-  // from the response buffer
+  // Removes the timedout buffered responses from the response buffer
   responseBuffer.clean = () => {
     const now = Date.now()
     const buffer = responseBuffer._buffer
@@ -42,10 +39,10 @@ const createResponseBuffer = (requestBufferLimit, ttl) => {
     responseBuffer._buffer[requestID] = bufferedResponse
   }
 
-  // Pops an existing bufferedResponse from the responseBuffer
+  // Gets an existing bufferedResponse from the responseBuffer
   responseBuffer.get = (requestID) => responseBuffer._buffer[requestID]
 
-  // Pops an existing bufferedResponse from the responseBuffer
+  // Deletes an existing bufferedResponse from the responseBuffer
   responseBuffer.remove = (requestID) =>
     delete responseBuffer._buffer[requestID]
 
@@ -113,7 +110,7 @@ const handleRequestForBufferedTask = (requestID, res, responseBuffer) => {
       responseBuffer.remove(requestID)
 
       if (bufferedResponse.succeeded) {
-        // test for cases where response is not an object
+        // TODO: test for cases where response is not an object
         res.status(200).json(bufferedResponse.response)
       } else {
         res.status(500).json(bufferedResponse.error)
@@ -128,8 +125,8 @@ const handleRequestForBufferedTask = (requestID, res, responseBuffer) => {
 
 /**
  * The RequestBuffer middleware
- * @param Number requestBufferLimit the size of the buffer
- * @param Number ttl the maximum time (in milliseconds) to live for each async
+ * @param {Number} requestBufferLimit the size of the buffer
+ * @param {Number} ttl the maximum time (in milliseconds) to live for each async
  *               task
  */
 export default ({ requestBufferLimit, ttl }) => {
