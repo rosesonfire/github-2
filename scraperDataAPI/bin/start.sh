@@ -1,2 +1,2 @@
 #!/bin/bash
-cd /scraper-api && npm start
+cd /scraper-data-api && npm start
