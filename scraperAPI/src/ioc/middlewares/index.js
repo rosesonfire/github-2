@@ -7,7 +7,7 @@ exports = module.exports = createNewInstance({
   instanceConstructor: middlewares,
   dependencyInstances: {
     json: bodyParser.json(),
-    urlencoded: bodyParser.urlencoded()
+    urlencoded: bodyParser.urlencoded({ extended: true })
   },
   dependencyConfig: {
     requestBuffer: 'middlewares/requestBuffer'

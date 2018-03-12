@@ -1,8 +1,8 @@
 import { createNewInstance } from './../iocHelper'
-import writeDataService from './../../main/services/writeDataService'
+import dataService from './../../main/services/dataService'
 
 exports = module.exports = createNewInstance({
-  instanceConstructor: writeDataService,
+  instanceConstructor: dataService,
   dependencyConfig: {
     odm: 'lib/odm/redisODM'
   }

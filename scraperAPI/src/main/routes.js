@@ -1,6 +1,6 @@
-export default ({ writeDataController }) => ({
+export default ({ dataController }) => ({
   get: {},
   post: {
-    '/scrapedData': writeDataController
+    '/scrapedData': dataController.writeData
   }
 })
