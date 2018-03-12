@@ -11,6 +11,7 @@ describe('DataController', () => {
     dataService,
     req,
     res,
+    expectedProperties,
     positiveResponse
 
   before(() => {
@@ -19,6 +20,7 @@ describe('DataController', () => {
         data: '{ "jsonData": "some data"}'
       }
     }
+    expectedProperties = ['writeData']
     positiveResponse = Promise.resolve('OK')
   })
 
@@ -28,12 +30,22 @@ describe('DataController', () => {
     dataService.writeData.once().withExactArgs(req.body.data)
       .returns(positiveResponse)
     res.setBufferedResponse.once().withExactArgs(positiveResponse)
-    mocks = [dataService.writeData, res.setBufferedResponse]
   })
 
   afterEach(() => mocks.forEach(mock => mock.verify()))
 
+  describe('When creating dataController', () => {
+    beforeEach(() => {
+      mocks = []
+    })
+    it('should have the expected properties', () =>
+      dataController({ dataService }).should.have.all.keys(expectedProperties))
+  })
+
   describe('When writing data', () => {
+    beforeEach(() => {
+      mocks = [dataService.writeData, res.setBufferedResponse]
+    })
     it('should write data successfully', () =>
       dataController({ dataService }).writeData(req, res))
   })
