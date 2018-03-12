@@ -7,7 +7,7 @@ import config from '../../../config'
 exports = module.exports = createNewInstance({
   instanceConstructor: expressWrapper,
   configuration: {
-    port: config.scraperApi.port
+    port: config.scraperDataAPI.port
   },
   dependencyInstances: {
     express

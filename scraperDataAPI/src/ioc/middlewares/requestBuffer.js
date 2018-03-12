@@ -5,7 +5,7 @@ import config from './../../config'
 exports = module.exports = createNewInstance({
   instanceConstructor: requestBuffer,
   configuration: {
-    requestBufferLimit: config.scraperApi.requestBuffer.bufferLimit,
-    ttl: config.scraperApi.requestBuffer.ttl
+    requestBufferLimit: config.scraperDataAPI.requestBuffer.bufferLimit,
+    ttl: config.scraperDataAPI.requestBuffer.ttl
   }
 })

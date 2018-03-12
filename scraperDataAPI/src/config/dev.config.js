@@ -1,5 +1,5 @@
 export default {
-  scraperApi: {
+  scraperDataAPI: {
     port: 8080,
     requestBuffer: {
       bufferLimit: 10,

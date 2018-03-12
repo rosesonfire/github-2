@@ -16,11 +16,11 @@
       }
     },
     {
-      "label": "clean-build-scraper-api",
+      "label": "clean-build-scraper-data-api",
       "type": "shell",
       "command": "npm run clean-build",
       "options": {
-        "cwd": "${workspaceFolder}/scraperAPI"
+        "cwd": "${workspaceFolder}/scraperDataAPI"
       },
       "group": {
         "kind": "build",
@@ -34,7 +34,7 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "dependsOn": ["clean-build-scraper", "clean-build-scraper-api"]
+      "dependsOn": ["clean-build-scraper", "clean-build-scraper-data-api"]
     }
   ]
 }

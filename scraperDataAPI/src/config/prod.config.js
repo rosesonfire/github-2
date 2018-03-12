@@ -1,5 +1,5 @@
 export default {
-  scraperApi: {
+  scraperDataAPI: {
     port: 80,
     requestBuffer: {
       bufferLimit: process.env.SCRAPER_API_REQUEST_BUFFER_LIMIT,
