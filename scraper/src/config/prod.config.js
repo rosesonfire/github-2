@@ -1,10 +1,13 @@
 export default {
   scraper: {
     endpoint: 'https://github.com/timeline',
-    fetchInterval: process.env.SCRAPER_FETCH_INTERVAL
+    fetchInterval: process.env.SCRAPER_FETCH_INTERVAL,
+    maxPollTries: process.env.SCRAPER_MAX_POLL_TRIES,
+    pollingInterval: process.env.SCRAPER_POLLING_INTERVAL
   },
-  db: {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT
+  dataAPI: {
+    host: process.env.DATA_API_HOST,
+    port: process.env.DATA_API_PORT,
+    path: process.env.DATA_API_PATH
   }
 }
