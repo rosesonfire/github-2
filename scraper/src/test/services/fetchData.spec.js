@@ -7,7 +7,7 @@ import axiosWrapperMock from './../mocks/lib/wrappers/axiosWrapper'
 describe('FetchData', () => {
   let
     mocks,
-    axiosWrapper,
+    axios,
     url,
     data
 
@@ -20,12 +20,15 @@ describe('FetchData', () => {
 
   describe('When fetching data', () => {
     beforeEach(() => {
-      axiosWrapper = axiosWrapperMock()
-      mocks = [ axiosWrapper.get ]
-      axiosWrapper.get.once().withExactArgs(url).returns(Promise.resolve(data))
+      axios = axiosWrapperMock()
+      mocks = [ axios.get ]
+      axios.get.once().withExactArgs(url).returns(Promise.resolve(data))
     })
 
+    it('should return a promise', () =>
+      fetchData({ http: axios })(url).should.be.a('promise'))
+
     it('should fetch data', () =>
-      fetchData({ http: axiosWrapper })(url).should.eventually.equal(data))
+      fetchData({ http: axios })(url).should.eventually.equal(data))
   })
 })
