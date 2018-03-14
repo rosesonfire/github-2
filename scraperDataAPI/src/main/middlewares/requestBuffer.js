@@ -1,6 +1,5 @@
 // TODO: test for invalid url
 // TODO: authentication and secret keys
-// TODO: should not directly send the requestID
 /**
  * Creates a response buffer
  * @param {Number} requestBufferLimit the size of the buffer
@@ -18,6 +17,7 @@ const createResponseBuffer = (requestBufferLimit, ttl) => {
   responseBuffer.clean = () => {
     const now = Date.now()
     const buffer = responseBuffer._buffer
+
     Object.keys(buffer).forEach(requestID => {
       if (now - buffer[requestID].creationTime > ttl) {
         delete buffer[requestID]
@@ -40,7 +40,16 @@ const createResponseBuffer = (requestBufferLimit, ttl) => {
   }
 
   // Gets an existing bufferedResponse from the responseBuffer
-  responseBuffer.get = (requestID) => responseBuffer._buffer[requestID]
+  responseBuffer.search = (requestToken) => {
+    const entry = Object.entries(responseBuffer._buffer)
+      .find(([requestID, bufferedResponse]) =>
+        bufferedResponse.requestToken === requestToken)
+
+    return entry ? {
+      requestID: entry[0],
+      bufferedResponse: entry[1]
+    } : undefined
+  }
 
   // Deletes an existing bufferedResponse from the responseBuffer
   responseBuffer.remove = (requestID) =>
@@ -52,6 +61,8 @@ const createResponseBuffer = (requestBufferLimit, ttl) => {
 // Create a buffered response to be added to the response buffer
 const createBufferedResponse = () => {
   const bufferedResponse = {
+    // TODO: this is not secure, make it more cryptic
+    requestToken: Date.now().toString(),
     completed: false,
     succeeded: false,
     response: null,
@@ -98,14 +109,16 @@ const handleRequestForNewTask = (res, next, responseBuffer) => {
     responseBuffer.push(requestID, bufferedResponse)
     decorateResponseObject(res, bufferedResponse)
     next()
-    res.status(202).json({ requestID })
+    res.status(202).json({ requestToken: bufferedResponse.requestToken })
   }
 }
 
-const handleRequestForBufferedTask = (requestID, res, responseBuffer) => {
-  const bufferedResponse = responseBuffer.get(requestID)
+const handleRequestForBufferedTask = (requestToken, res, responseBuffer) => {
+  const searchResult = responseBuffer.search(requestToken)
 
-  if (bufferedResponse) {
+  if (searchResult) {
+    const { requestID, bufferedResponse } = searchResult
+
     if (bufferedResponse.completed) {
       responseBuffer.remove(requestID)
 
@@ -133,12 +146,12 @@ export default ({ requestBufferLimit, ttl }) => {
   const responseBuffer = createResponseBuffer(requestBufferLimit, ttl)
 
   return (req, res, next) => {
-    if (req.body.requestID === undefined) {
+    if (req.body.requestToken === undefined) {
       handleRequestForNewTask(res, next, responseBuffer)
     } else {
-      const requestID = req.body.requestID
+      const requestToken = req.body.requestToken
 
-      handleRequestForBufferedTask(requestID, res, responseBuffer)
+      handleRequestForBufferedTask(requestToken, res, responseBuffer)
     }
   }
 }
