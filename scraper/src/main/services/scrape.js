@@ -15,13 +15,12 @@ const extract = ({ jsonData, baseUrl }) => {
 }
 
 // ETL's required data from endpoint to persistence
-export default ({ url, getBaseUrl, fetchData, convertXMLToJSON, odm }) =>
+export default ({ url, getBaseUrl, fetchData, convertXMLToJSON, saveData }) =>
   async () => {
-    const baseUrl = await getBaseUrl(url)
     const { data } = await fetchData(url)
     const jsonData = await convertXMLToJSON(data)
+    const baseUrl = await getBaseUrl(url)
     const requiredDataSet = extract({ jsonData, baseUrl })
 
-    return Promise.all(requiredDataSet.map(requiredData =>
-      odm.create({ key: requiredData.author.uri, data: requiredData }).save()))
+    return saveData(requiredDataSet)
   }

@@ -11,6 +11,6 @@ exports = module.exports = createNewInstance({
     getBaseUrl: 'services/getBaseUrl',
     fetchData: 'services/fetchData',
     convertXMLToJSON: 'services/convertXMLToJSON',
-    odm: 'lib/odm/redisODM'
+    saveData: 'services/saveData'
   }
 })
