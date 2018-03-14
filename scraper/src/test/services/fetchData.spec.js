@@ -2,13 +2,12 @@ import { describe, before, beforeEach, afterEach, it } from './../setup'
 // unit
 import fetchData from './../../main/services/fetchData'
 // mocks
-import plainOldMockObject from './../mocks/others/plainOldMockObject'
+import axiosWrapperMock from './../mocks/lib/wrappers/axiosWrapper'
 
 describe('FetchData', () => {
   let
     mocks,
-    httpGetter,
-    asyncHttpGetter,
+    axiosWrapper,
     url,
     data
 
@@ -19,29 +18,14 @@ describe('FetchData', () => {
 
   afterEach(() => mocks.forEach(mock => mock.verify()))
 
-  describe('When fetching data with sync httpGetter', () => {
+  describe('When fetching data', () => {
     beforeEach(() => {
-      httpGetter = plainOldMockObject()
-      mocks = [ httpGetter ]
-      httpGetter.once().withExactArgs(url).returns(data)
-    })
-
-    it('should return a promise', () => fetchData({ httpGetter })(url)
-      .should.be.a('promise'))
-
-    it('should fetch data', () => fetchData({ httpGetter })(url).should
-      .eventually.equal(data))
-  })
-
-  describe('When fetching data with async httpGetter', () => {
-    beforeEach(() => {
-      asyncHttpGetter = plainOldMockObject()
-      mocks = [ asyncHttpGetter ]
-      asyncHttpGetter.once().withExactArgs(url).returns(Promise.resolve(data))
+      axiosWrapper = axiosWrapperMock()
+      mocks = [ axiosWrapper.get ]
+      axiosWrapper.get.once().withExactArgs(url).returns(Promise.resolve(data))
     })
 
     it('should fetch data', () =>
-      fetchData({ httpGetter: asyncHttpGetter })(url).should.eventually
-        .equal(data))
+      fetchData({ http: axiosWrapper })(url).should.eventually.equal(data))
   })
 })
