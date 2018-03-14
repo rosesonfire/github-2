@@ -9,16 +9,15 @@
  *       <config2_name>: <config2_value>,
  *       ....
  *     }
- * @param {Object} dependencyInstances constructor the constructor arguments
- *   which are passed directly. Structure:
+ * @param {Object} dependencyInstances the constructor arguments which are
+ *   passed directly. Structure:
  *     {
  *       <dependency1_name>: <dependency1_instance>,
  *       <dependency2_name>: <dependency2_instance>,
  *       ....
  *     }
  * @param {Object} dependencyConfig the dependency paths which are used to
- *   resolve the the dependencies through electrolyte. constructor arguments
- *   which are passed directly. Structure:
+ *   resolve the the dependencies through electrolyte. Structure:
  *     {
  *       <dependency1_name>: <dependency1_path>,
  *       <dependency2_name>: <dependency2_path>,
