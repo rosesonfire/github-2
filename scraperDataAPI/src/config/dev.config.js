@@ -3,7 +3,7 @@ export default {
     port: 8080,
     requestBuffer: {
       bufferLimit: 10,
-      ttl: 20000
+      ttl: 10000
     }
   },
   db: {
