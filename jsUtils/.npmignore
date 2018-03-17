@@ -1,0 +1,7 @@
+.babelrc
+.eslintrc.json
+.nyc_output
+.gitignore
+src
+dist/test
+coverage
