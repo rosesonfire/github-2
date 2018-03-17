@@ -1,25 +1,36 @@
 version: '3'
 services:
-  scraper:
-    container_name: "scraper"
-    build: "scraper"
+  scraper-db:
+    container_name: "scraper-db"
+    build: "https://github.com/rosesonfire/github-db.git"
+    ports:
+      - "8080:6379"
+  scraper-data-api:
+    container_name: "scraper-data-api"
+    build: "https://github.com/rosesonfire/github-scraper-data-api.git"
+    ports:
+      - "8081:80"
     environment:
      - NODE_ENV=production
      - DB_HOST=scraper-db
      - DB_PORT=6379
-     - SCRAPER_FETCH_INTERVAL=5000
+     - SCRAPER_DATA_API_REQUEST_BUFFER_LIMIT=100
+     - SCRAPER_DATA_API_REQUEST_BUFFER_TTL=10000
     depends_on:
       - "scraper-db"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 50M
-  scraper-db:
-    container_name: "scraper-db"
-    build: "scraperDB"
-    ports:
-      - "8080:6379"
+  scraper:
+    container_name: "scraper"
+    build: "https://github.com/rosesonfire/github-scraper.git"
+    environment:
+     - NODE_ENV=production
+     - DATA_API_HOST=scraper-data-api
+     - DATA_API_PORT=80
+     - DATA_API_PATH=/scrapedData
+     - SCRAPER_FETCH_INTERVAL=5000
+     - SCRAPER_POLLING_INTERVAL=1000
+     - SCRAPER_MAX_POLL_TRIES=10
+    depends_on:
+      - "scraper-data-api"
   # analyzer:
   #   container_name: "analyzer"
   #   build: "analyzer"
