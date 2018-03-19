@@ -5,8 +5,8 @@ services:
     build: "https://github.com/rosesonfire/github-db.git"
     ports:
       - "8080:6379"
-  scraper-data-api:
-    container_name: "scraper-data-api"
+  scraper-write-data-api:
+    container_name: "scraper-write-data-api"
     build: "https://github.com/rosesonfire/github-scraper-data-api.git"
     ports:
       - "8081:80"
@@ -30,6 +30,7 @@ services:
      - SCRAPER_POLLING_INTERVAL=1000
      - SCRAPER_MAX_POLL_TRIES=10
     depends_on:
+      - "scraper-write-data-api"
       - "scraper-data-api"
   # analyzer:
   #   container_name: "analyzer"
