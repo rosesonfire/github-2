@@ -2,7 +2,7 @@ version: '3'
 services:
   scraper-db:
     container_name: "scraper-db"
-    build: "https://github.com/rosesonfire/github-db.git"
+    build: "https://github.com/rosesonfire/github-scraper-db.git"
     ports:
       - "8080:6379"
   scraper-write-data-api:
